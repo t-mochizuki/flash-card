@@ -4,14 +4,22 @@
     <meta charset="utf-8">
     <title>Flash Card</title>
     <script src="main.js" defer></script>
+    <link href="style.css" rel="stylesheet">
   </head>
   <body>
     <h1 style="text-align: center">Welcome to Flash Card</h1>
-    <dialog style="width: 90vw; height: 90vh; position: -webkit-sticky; position: sticky; top: 8px;"><p class="answer">baz</p></dialog>
-    <ul>
-      <li><p class="question">foo</p></li>
-      <li><p class="question">bar</p></li>
-      <li><p class="question">question</p></li>
-    </ul>
+    <div>
+      <dialog style="width: 90vw; height: 90vh; position: -webkit-sticky; position: sticky; top: 8px;"><p class="answer"></p></dialog>
+      <ul>
+        <li><p class="question">foo</p></li>
+        <li><p class="question">bar</p></li>
+        <li><p class="question">question</p></li>
+      </ul>
+
+      <div style="display: grid; justify-content: center;">
+        <label for="fileloader">Choose a JSON file to update flash cards</label>
+        <input id="fileloader" type="file" accept=".json" />
+      </div>
+    </div>
   </body>
 </html>
