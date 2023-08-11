@@ -3,25 +3,7 @@
   const dialogElem = document.querySelector("dialog");
   const answerElem = document.querySelector("dialog > .answer");
 
-  const json_str = JSON.stringify([{question: "foo", answer: "baz"}, {question: "question", answer: "answer"}]);
-  const json = JSON.parse(json_str);
-
   let flipper = new Object();
-
-  liFragment = new DocumentFragment();
-  json.forEach(({question, answer}) => {
-    pElem = document.createElement("p");
-    pElem.innerText = question;
-    pElem.className = "question";
-
-    liElem = document.createElement("li");
-    liElem.append(pElem);
-
-    liFragment.append(liElem);
-
-    flipper[question] = answer;
-  });
-  ulElem.append(liFragment);
 
   ulElem.addEventListener("click", () => {
     if (dialogElem.open) return;
@@ -44,4 +26,38 @@
       dialogElem.close();
     }
   });
+
+  const fileloader = document.getElementById("fileloader");
+
+  fileloader.addEventListener("change", handleFile, false);
+
+  function handleFile() {
+    const f = this.files[0];
+
+    if (f.type !== "application/json") return;
+
+    const reader = new FileReader();
+    reader.onload = (function(theFile) {
+      return function(e) {
+        const json = JSON.parse(e.target.result);
+
+        liFragment = new DocumentFragment();
+        json.forEach(({question, answer}) => {
+          pElem = document.createElement("p");
+          pElem.innerText = question;
+          pElem.className = "question";
+
+          liElem = document.createElement("li");
+          liElem.append(pElem);
+
+          liFragment.append(liElem);
+
+          flipper[question] = answer;
+        });
+        ulElem.append(liFragment);
+      };
+    })(f);
+
+    reader.readAsText(f);
+  }
 })();
