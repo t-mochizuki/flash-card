@@ -6,6 +6,8 @@
   const json_str = JSON.stringify([{question: "foo", answer: "baz"}, {question: "question", answer: "answer"}]);
   const json = JSON.parse(json_str);
 
+  let flipper = new Object();
+
   liFragment = new DocumentFragment();
   json.forEach(({question, answer}) => {
     pElem = document.createElement("p");
@@ -16,13 +18,10 @@
     liElem.append(pElem);
 
     liFragment.append(liElem);
+
+    flipper[question] = answer;
   });
   ulElem.append(liFragment);
-
-  const flipper = {
-    "foo": "baz",
-    "question": "answer"
-  }
 
   ulElem.addEventListener("click", () => {
     if (dialogElem.open) return;
