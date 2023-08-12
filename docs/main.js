@@ -72,13 +72,17 @@
 
   const makerDialogElem = document.querySelector("dialog.maker_dialog");
 
-  const makerElem = document.getElementById("maker");
-
-  makerElem.addEventListener("click", () => {
+  function displayFlashCardMaker() {
     if (makerDialogElem.open) return;
 
     makerDialogElem.show();
-  });
+  }
+
+  {
+    const makerElem = document.getElementById("maker");
+
+    makerElem.addEventListener("click", displayFlashCardMaker);
+  }
 
   function makeFlashCard(question) {
     const pElem = document.createElement("p");
