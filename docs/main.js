@@ -27,10 +27,10 @@
     }
   });
 
-  const fileloaderElem = document.getElementById("fileloader");
+  const fileLoaderElem = document.getElementById("file_loader");
   const type = "application/json";
 
-  fileloaderElem.addEventListener("change", handleFile, false);
+  fileLoaderElem.addEventListener("change", handleFile, false);
 
   function handleFile() {
     const f = this.files[0];

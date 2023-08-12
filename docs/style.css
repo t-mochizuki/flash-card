@@ -12,7 +12,7 @@ input[type="file"] {
   opacity: 0;
 }
 
-label[for="fileloader"] {
+label[for="file_loader"] {
   background: #eee;
   border: 1px solid rgb(169, 169, 169);
   border-radius: 5px;
@@ -20,7 +20,7 @@ label[for="fileloader"] {
   line-height: 1.5;
 }
 
-label[for="fileloader"]:hover {
+label[for="file_loader"]:hover {
   background: #fff;
 }
 
