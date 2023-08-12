@@ -10,6 +10,12 @@ dialog {
   top: 10vh;
 }
 
+dialog.maker_dialog > div {
+  padding: 2px;
+  display: flex;
+  justify-content: center;
+}
+
 input[type="file"],
 input[type="button"],
 input[type="submit"] {
