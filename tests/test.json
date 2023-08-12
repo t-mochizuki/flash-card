@@ -1,1 +1,6 @@
-[{"question": "foo", "answer": "baz"}, {"question": "question", "answer": "answer"}]
+[
+  {"question": "foo", "answer": "baz"},
+  {"question": "question"},
+  {"answer": "answer"},
+  {"question": "question", "answer": "answer"}
+]

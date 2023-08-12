@@ -43,6 +43,9 @@
 
         liFragment = new DocumentFragment();
         json.forEach(({question, answer}) => {
+          if (question === undefined) return;
+          if (answer === undefined) return;
+
           pElem = document.createElement("p");
           pElem.innerText = question;
           pElem.className = "question";
