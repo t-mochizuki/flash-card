@@ -72,7 +72,6 @@
     makerDialogElem.show();
   });
 
-  const flashCardMakerElem = document.getElementById("flash_card_maker");
   const frontSideElem = document.getElementById("question");
   const backSideElem = document.getElementById("answer");
 
@@ -109,7 +108,11 @@
     makerDialogElem.close();
   }
 
-  flashCardMakerElem.addEventListener("click", addFlashCard);
+  {
+    const flashCardMakerElem = document.getElementById("flash_card_maker");
+
+    flashCardMakerElem.addEventListener("click", addFlashCard);
+  }
 
   // The following function depends on ulElem variable,
   //                                   answerElem variable,
