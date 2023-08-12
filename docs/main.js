@@ -1,12 +1,12 @@
 (() => {
   const ulElem = document.querySelector("ul");
-  const dialogElem = document.querySelector("dialog");
-  const answerElem = document.querySelector("dialog > .answer");
+  const answerDialogElem = document.querySelector("dialog.answer_dialog");
+  const answerElem = document.querySelector("dialog.answer_dialog > .answer");
 
   let flipper = new Object();
 
   ulElem.addEventListener("click", () => {
-    if (dialogElem.open) return;
+    if (answerDialogElem.open) return;
 
     const questionElem = ulElem.querySelector("li:hover > .question");
 
@@ -18,12 +18,12 @@
 
     answerElem.innerText = questionText;
 
-    dialogElem.show();
+    answerDialogElem.show();
   });
 
-  dialogElem.addEventListener("click", () => {
-    if (dialogElem.open) {
-      dialogElem.close();
+  answerDialogElem.addEventListener("click", () => {
+    if (answerDialogElem.open) {
+      answerDialogElem.close();
     }
   });
 
