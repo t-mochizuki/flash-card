@@ -88,7 +88,13 @@
     return liElem;
   }
 
-  flashCardMakerElem.addEventListener("click", () => {
+  // The following function depends on frontSideElem variable,
+  //                                   backSideElem variable,
+  //                                   makeFlashCard function,
+  //                                   ulElem variable,
+  //                                   flipper variable
+  //                               and makerDialogElem variable.
+  function addFlashCard() {
     const question = frontSideElem.value;
     const answer = backSideElem.value;
     if (question !== "" && answer !== "") {
@@ -101,7 +107,9 @@
     }
 
     makerDialogElem.close();
-  });
+  }
+
+  flashCardMakerElem.addEventListener("click", addFlashCard);
 
   // The following function depends on ulElem variable,
   //                                   answerElem variable,
