@@ -27,9 +27,9 @@
     }
   });
 
-  const fileloader = document.getElementById("fileloader");
+  const fileloaderElem = document.getElementById("fileloader");
 
-  fileloader.addEventListener("change", handleFile, false);
+  fileloaderElem.addEventListener("change", handleFile, false);
 
   function handleFile() {
     const f = this.files[0];
@@ -62,5 +62,9 @@
     })(f);
 
     reader.readAsText(f);
+
+    const fileloaderbuttonElem = document.querySelector(".fileloaderbutton");
+
+    fileloaderbuttonElem.style.visibility = "collapse";
   }
 })();
