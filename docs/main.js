@@ -27,17 +27,25 @@
     }
   });
 
-  const fileLoaderElem = document.getElementById("file_loader");
   const type = "application/json";
 
-  fileLoaderElem.addEventListener("change", handleFile, false);
+  {
+    const fileLoaderElem = document.getElementById("file_loader");
 
-  function handleFile() {
+    fileLoaderElem.addEventListener("change", loadFlashCards, false);
+  }
+
+  // The following function depends on type variable,
+  //                                   makeFlashCard function,
+  //                                   ulElem variable,
+  //                               and flipper variable.
+  function loadFlashCards() {
     const f = this.files[0];
 
     if (f.type !== type) return;
 
     const reader = new FileReader();
+
     reader.onload = (function() {
       return function(e) {
         const json = JSON.parse(e.target.result);
