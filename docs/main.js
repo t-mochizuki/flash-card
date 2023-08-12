@@ -1,7 +1,7 @@
 (() => {
   const ulElem = document.querySelector("ul");
   const answerDialogElem = document.querySelector("dialog.answer_dialog");
-  const answerElem = document.querySelector("dialog.answer_dialog > .answer");
+  const answerElem = document.querySelector("dialog.answer_dialog > p.answer");
 
   let flipper = new Object();
 
@@ -38,21 +38,21 @@
     if (f.type !== type) return;
 
     const reader = new FileReader();
-    reader.onload = (function(theFile) {
+    reader.onload = (function() {
       return function(e) {
         const json = JSON.parse(e.target.result);
 
-        liFragment = new DocumentFragment();
+        const liFragment = new DocumentFragment();
         json.forEach(({question, answer}) => {
           if (question === undefined) return;
           if (answer === undefined) return;
 
-          pElem = document.createElement("p");
+          const pElem = document.createElement("p");
           pElem.innerText = question;
           pElem.className = "question";
           pElem.style.textAlign = "center";
 
-          liElem = document.createElement("li");
+          const liElem = document.createElement("li");
           liElem.append(pElem);
 
           liFragment.append(liElem);
@@ -99,4 +99,32 @@
 
     makerDialogElem.show();
   });
+
+  const flashCardMakerElem = document.getElementById("flash_card_maker");
+  const frontSideElem = document.getElementById("question");
+  const backSideElem = document.getElementById("answer");
+
+  flashCardMakerElem.addEventListener("click", () => {
+    const question = frontSideElem.value;
+    const answer = backSideElem.value;
+    if (question !== "" && answer !== "") {
+      const pElem = document.createElement("p");
+      pElem.innerText = question;
+      pElem.className = "question";
+      pElem.style.textAlign = "center";
+
+      const liElem = document.createElement("li");
+      liElem.append(pElem);
+
+      ulElem.append(liElem);
+
+      flipper[question] = answer;
+
+      frontSideElem.value = "";
+      backSideElem.value = "";
+    }
+
+    makerDialogElem.close();
+  });
+
 })();
