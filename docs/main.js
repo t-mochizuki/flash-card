@@ -28,13 +28,14 @@
   });
 
   const fileloaderElem = document.getElementById("fileloader");
+  const type = "application/json";
 
   fileloaderElem.addEventListener("change", handleFile, false);
 
   function handleFile() {
     const f = this.files[0];
 
-    if (f.type !== "application/json") return;
+    if (f.type !== type) return;
 
     const reader = new FileReader();
     reader.onload = (function(theFile) {
@@ -63,8 +64,28 @@
 
     reader.readAsText(f);
 
-    const fileloaderbuttonElem = document.querySelector(".fileloaderbutton");
+    const loaderElem = document.querySelector(".loader");
 
-    fileloaderbuttonElem.style.visibility = "collapse";
+    loaderElem.style.visibility = "collapse";
   }
+
+  const exporterElem = document.querySelector(".exporter");
+
+  exporterElem.addEventListener("click", () => {
+    let aElem = document.createElement("a");
+    const json = [];
+    for (const property in flipper) {
+      json.push({question: property, answer: flipper[property]});
+    }
+    const f = new Blob([JSON.stringify(json)], {type: type});
+    let url = URL.createObjectURL(f);
+    aElem.href = url;
+    aElem.download = "flashcards";
+    document.body.appendChild(aElem);
+    aElem.click();
+    setTimeout(function() {
+      document.body.removeChild(aElem);
+      window.URL.revokeObjectURL(url);
+    }, 0);
+  });
 })();
