@@ -80,9 +80,6 @@
     makerDialogElem.show();
   });
 
-  const frontSideElem = document.getElementById("question");
-  const backSideElem = document.getElementById("answer");
-
   function makeFlashCard(question) {
     const pElem = document.createElement("p");
     pElem.innerText = question;
@@ -95,25 +92,30 @@
     return liElem;
   }
 
-  // The following function depends on frontSideElem variable,
-  //                                   backSideElem variable,
-  //                                   makeFlashCard function,
-  //                                   ulElem variable,
-  //                                   flipper variable
-  //                               and makerDialogElem variable.
-  function addFlashCard() {
-    const question = frontSideElem.value;
-    const answer = backSideElem.value;
-    if (question !== "" && answer !== "") {
-      ulElem.append(makeFlashCard(question));
+  {
+    const frontSideElem = document.getElementById("question");
+    const backSideElem = document.getElementById("answer");
 
-      flipper[question] = answer;
+    // The following function depends on frontSideElem variable,
+    //                                   backSideElem variable,
+    //                                   makeFlashCard function,
+    //                                   ulElem variable,
+    //                                   flipper variable
+    //                               and makerDialogElem variable.
+    function addFlashCard() {
+      const question = frontSideElem.value;
+      const answer = backSideElem.value;
+      if (question !== "" && answer !== "") {
+        ulElem.append(makeFlashCard(question));
 
-      frontSideElem.value = "";
-      backSideElem.value = "";
+        flipper[question] = answer;
+
+        frontSideElem.value = "";
+        backSideElem.value = "";
+      }
+
+      makerDialogElem.close();
     }
-
-    makerDialogElem.close();
   }
 
   {
@@ -164,6 +166,7 @@
 
   {
     const exporterElem = document.getElementById("exporter");
+
     exporterElem.addEventListener("click", exportFlashCards);
   }
 })();
