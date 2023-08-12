@@ -107,9 +107,11 @@
     makerDialogElem.close();
   });
 
-  const flashCardSlayerElem = document.getElementById("flash_card_slayer");
-
-  flashCardSlayerElem.addEventListener("click", () => {
+  // The following function depends on ulElem variable,
+  //                                   answerElem variable,
+  //                                   flipper variable
+  //                               and answerDialogElem variable.
+  function deleteFlashCard() {
     ulElem.childNodes.forEach((liElem) => {
       if (answerElem.innerText === flipper[liElem.innerText]) {
         liElem.remove();
@@ -118,7 +120,13 @@
     })
 
     answerDialogElem.close();
-  });
+  }
+
+  {
+    const flashCardSlayerElem = document.getElementById("flash_card_slayer");
+
+    flashCardSlayerElem.addEventListener("click", deleteFlashCard);
+  }
 
   // The following function depends on flipper variable and type variable.
   function exportFlashCards() {
