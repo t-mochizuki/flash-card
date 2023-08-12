@@ -26,6 +26,11 @@ input[type="submit"] {
   opacity: 0;
 }
 
+input[type="text"] {
+  width: 60vw;
+  padding: 2px;
+}
+
 label[for="file_loader"],
 label[for="exporter"],
 label[for="maker"],
