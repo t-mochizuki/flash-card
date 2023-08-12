@@ -47,15 +47,7 @@
           if (question === undefined) return;
           if (answer === undefined) return;
 
-          const pElem = document.createElement("p");
-          pElem.innerText = question;
-          pElem.className = "question";
-          pElem.style.textAlign = "center";
-
-          const liElem = document.createElement("li");
-          liElem.append(pElem);
-
-          liFragment.append(liElem);
+          liFragment.append(makeFlashCard(question));
 
           flipper[question] = answer;
         });
@@ -84,19 +76,23 @@
   const frontSideElem = document.getElementById("question");
   const backSideElem = document.getElementById("answer");
 
+  function makeFlashCard(question) {
+    const pElem = document.createElement("p");
+    pElem.innerText = question;
+    pElem.className = "question";
+    pElem.style.textAlign = "center";
+
+    const liElem = document.createElement("li");
+    liElem.append(pElem);
+
+    return liElem;
+  }
+
   flashCardMakerElem.addEventListener("click", () => {
     const question = frontSideElem.value;
     const answer = backSideElem.value;
     if (question !== "" && answer !== "") {
-      const pElem = document.createElement("p");
-      pElem.innerText = question;
-      pElem.className = "question";
-      pElem.style.textAlign = "center";
-
-      const liElem = document.createElement("li");
-      liElem.append(pElem);
-
-      ulElem.append(liElem);
+      ulElem.append(makeFlashCard(question));
 
       flipper[question] = answer;
 
