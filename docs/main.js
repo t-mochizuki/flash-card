@@ -8,15 +8,15 @@
   ulElem.addEventListener("click", () => {
     if (answerDialogElem.open) return;
 
-    const questionElem = ulElem.querySelector("li:hover > .question");
+    const questionElem = ulElem.querySelector("li:hover > p.question");
 
     if (questionElem === null) return;
 
-    const questionText = flipper[questionElem.innerText];
+    const answerText = flipper[questionElem.innerText];
 
-    if (questionText === undefined) return;
+    if (answerText === undefined) return;
 
-    answerElem.innerText = questionText;
+    answerElem.innerText = answerText;
 
     answerDialogElem.show();
   });
@@ -127,4 +127,16 @@
     makerDialogElem.close();
   });
 
+  const flashCardSlayerElem = document.getElementById("flash_card_slayer");
+
+  flashCardSlayerElem.addEventListener("click", () => {
+    ulElem.childNodes.forEach((liElem) => {
+      if (answerElem.innerText === flipper[liElem.innerText]) {
+        liElem.remove();
+        delete flipper[liElem.innerText];
+      }
+    })
+
+    answerDialogElem.close();
+  });
 })();
