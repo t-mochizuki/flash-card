@@ -70,26 +70,6 @@
     loaderElem.style.visibility = "collapse";
   }
 
-  const exporterElem = document.getElementById("exporter");
-
-  exporterElem.addEventListener("click", () => {
-    let aElem = document.createElement("a");
-    const json = [];
-    for (const property in flipper) {
-      json.push({question: property, answer: flipper[property]});
-    }
-    const f = new Blob([JSON.stringify(json)], {type: type});
-    let url = URL.createObjectURL(f);
-    aElem.href = url;
-    aElem.download = "flashcards";
-    document.body.appendChild(aElem);
-    aElem.click();
-    setTimeout(function() {
-      document.body.removeChild(aElem);
-      window.URL.revokeObjectURL(url);
-    }, 0);
-  });
-
   const makerDialogElem = document.querySelector("dialog.maker_dialog");
 
   const makerElem = document.getElementById("maker");
@@ -139,4 +119,28 @@
 
     answerDialogElem.close();
   });
+
+  // The following function depends on flipper variable and type variable.
+  function exportFlashCards() {
+    let aElem = document.createElement("a");
+    const json = [];
+    for (const question in flipper) {
+      json.push({question, answer: flipper[question]});
+    }
+    const f = new Blob([JSON.stringify(json)], {type: type});
+    let url = URL.createObjectURL(f);
+    aElem.href = url;
+    aElem.download = "flashcards";
+    document.body.appendChild(aElem);
+    aElem.click();
+    setTimeout(function() {
+      document.body.removeChild(aElem);
+      window.URL.revokeObjectURL(url);
+    }, 0);
+  }
+
+  {
+    const exporterElem = document.getElementById("exporter");
+    exporterElem.addEventListener("click", exportFlashCards);
+  }
 })();
