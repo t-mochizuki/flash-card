@@ -9,17 +9,39 @@
   <body>
     <h1 style="text-align: center">Welcome to Flash Card</h1>
     <div>
-      <dialog class="answer_dialog"><p class="answer"></p></dialog>
+      <dialog class="maker_dialog">
+        <form>
+          <div>
+            <label for="question">Front side</label>
+            <input id="question" type="text" required />
+          </div>
+          <div>
+            <label for="answer">Back side</label>
+            <input id="answer" type="text" required />
+          </div>
+          <div>
+            <input id="flash_card_maker" type="submit" value="Make a flash card" />
+          </div>
+        </form>
+      </dialog>
+
+      <dialog class="answer_dialog"><p style="text-align: center;" class="answer"></p></dialog>
       <ul></ul>
 
-      <div style="display: flex;">
+      <div style="display: flex; justify-content: center;">
         <div class="loader">
           <label for="file_loader">Load flash cards</label>
           <input id="file_loader" type="file" accept=".json" />
         </div>
 
         <div>
-          <div class="exporter">Export flash cards</div>
+          <label for="exporter">Export flash cards</label>
+          <input id="exporter" type="button" />
+        </div>
+
+        <div>
+          <label for="maker">Make a flash card</label>
+          <input id="maker" type="button" />
         </div>
       </div>
     </div>

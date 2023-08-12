@@ -50,6 +50,7 @@
           pElem = document.createElement("p");
           pElem.innerText = question;
           pElem.className = "question";
+          pElem.style.textAlign = "center";
 
           liElem = document.createElement("li");
           liElem.append(pElem);
@@ -69,7 +70,7 @@
     loaderElem.style.visibility = "collapse";
   }
 
-  const exporterElem = document.querySelector(".exporter");
+  const exporterElem = document.getElementById("exporter");
 
   exporterElem.addEventListener("click", () => {
     let aElem = document.createElement("a");
@@ -87,5 +88,15 @@
       document.body.removeChild(aElem);
       window.URL.revokeObjectURL(url);
     }, 0);
+  });
+
+  const makerDialogElem = document.querySelector("dialog.maker_dialog");
+
+  const makerElem = document.getElementById("maker");
+
+  makerElem.addEventListener("click", () => {
+    if (makerDialogElem.open) return;
+
+    makerDialogElem.show();
   });
 })();
