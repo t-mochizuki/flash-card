@@ -31,7 +31,7 @@ input[type="text"] {
   padding: 2px;
 }
 
-label[for="file_loader"],
+label[for="flash_card_loader"],
 label[for="exporter"],
 label[for="maker"],
 label[for="flash_card_slayer"],
@@ -43,7 +43,7 @@ label[for="flash_card_maker"] {
   line-height: 1.5;
 }
 
-label[for="file_loader"]:hover,
+label[for="flash_card_loader"]:hover,
 label[for="exporter"]:hover,
 label[for="maker"]:hover,
 label[for="flash_card_slayer"]:hover,

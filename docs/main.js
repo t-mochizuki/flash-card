@@ -34,9 +34,9 @@
   const type = "application/json";
 
   {
-    const fileLoaderElem = document.getElementById("file_loader");
+    const flashCardLoaderElem = document.getElementById("flash_card_loader");
 
-    fileLoaderElem.addEventListener("change", loadFlashCards, false);
+    flashCardLoaderElem.addEventListener("change", loadFlashCards, false);
   }
 
   // The following function depends on makeFlashCard function,
