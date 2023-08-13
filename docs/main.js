@@ -40,7 +40,6 @@
   }
 
   // The following function depends on makeFlashCard function,
-  //                                   makeSlayer function,
   //                                   flashCardListElem variable,
   //                               and flipper variable.
   function addFlashCards(e) {
@@ -51,10 +50,7 @@
       if (question === undefined) return;
       if (answer === undefined) return;
 
-      const flashCardRoleElem = document.createElement("div");
-      flashCardRoleElem.append(makeFlashCard(question));
-      flashCardRoleElem.append(makeSlayer(question));
-      flashCardFragment.append(flashCardRoleElem);
+      flashCardFragment.append(makeFlashCard(question));
 
       flipper[question] = answer;
     });
@@ -93,23 +89,6 @@
     makerElem.addEventListener("click", displayFlashCardMaker);
   }
 
-  function makeSlayer(question) {
-    const labelElem = document.createElement("label");
-    labelElem.innerText = "Delete the flash card";
-    labelElem.htmlFor = "flash_card_slayer";
-
-    const inputElem = document.createElement("input");
-    inputElem.setAttribute("id", "flash_card_slayer");
-    inputElem.setAttribute("type", "submit");
-    inputElem.addEventListener("click", deleteFlashCard(question));
-
-    const flashCardSlayerElem = document.createElement("div");
-    flashCardSlayerElem.append(labelElem);
-    flashCardSlayerElem.append(inputElem);
-
-    return flashCardSlayerElem;
-  }
-
   function makeFlashCard(question) {
     const pElem = document.createElement("p");
     pElem.innerText = question;
@@ -129,7 +108,6 @@
     // The following function depends on frontSideElem variable,
     //                                   backSideElem variable,
     //                                   makeFlashCard function,
-    //                                   makeSlayer function,
     //                                   flashCardListElem variable,
     //                                   flipper variable
     //                               and makerDialogElem variable.
@@ -137,10 +115,7 @@
       const question = frontSideElem.value;
       const answer = backSideElem.value;
       if (question !== "" && answer !== "") {
-        const flashCardRoleElem = document.createElement("div");
-        flashCardRoleElem.append(makeFlashCard(question));
-        flashCardRoleElem.append(makeSlayer(question));
-        flashCardListElem.append(flashCardRoleElem);
+        flashCardListElem.append(makeFlashCard(question));
 
         flipper[question] = answer;
 
@@ -159,17 +134,24 @@
   }
 
   // The following function depends on flashCardListElem variable,
+  //                                   answerElem variable,
   //                                   flipper variable
   //                               and answerDialogElem variable.
-  function deleteFlashCard(question) {
-    return () => {
-      flashCardListElem.childNodes.forEach((flashCardElem) => {
-        if (question === flashCardElem.children[0].innerText) {
-          delete flipper[flashCardElem.children[0].innerText];
-          flashCardElem.remove();
-        }
-      });
-    }
+  function deleteFlashCard() {
+    flashCardListElem.childNodes.forEach((flashCardElem) => {
+      if (answerElem.innerText === flipper[flashCardElem.innerText]) {
+        flashCardElem.remove();
+        delete flipper[flashCardElem.innerText];
+      }
+    })
+
+    answerDialogElem.close();
+  }
+
+  {
+    const flashCardSlayerElem = document.getElementById("flash_card_slayer");
+
+    flashCardSlayerElem.addEventListener("click", deleteFlashCard);
   }
 
   // The following function depends on flipper variable and type variable.
