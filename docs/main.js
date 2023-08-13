@@ -8,7 +8,7 @@
   function displayAnswerDialog() {
     if (answerDialogElem.open) return;
 
-    const questionElem = flashCardListElem.querySelector("div:hover > p.question");
+    const questionElem = flashCardListElem.querySelector("span:hover > p.question");
 
     if (questionElem === null) return;
 
@@ -45,7 +45,7 @@
     const flashCardRoleElem = document.createElement("div");
     flashCardRoleElem.append(makeFlashCard(frontSideContent));
     flashCardRoleElem.append(makeSlayer(frontSideContent));
-    flashCardRoleElem.style.display = "flex";
+    flashCardRoleElem.className = "flash_card_roles";
 
     return flashCardRoleElem;
   }
@@ -113,12 +113,12 @@
     });
 
     const labelElem = document.createElement("label");
-    labelElem.className = "flash_card_slayer";
     labelElem.innerText = "Delete the flash card";
     labelElem.append(inputElem);
 
-    const flashCardSlayerElem = document.createElement("div");
+    const flashCardSlayerElem = document.createElement("span");
     flashCardSlayerElem.append(labelElem);
+    flashCardSlayerElem.className = "flash_card_slayer";
 
     return flashCardSlayerElem;
   }
@@ -129,8 +129,9 @@
     pElem.className = "question";
     pElem.style.textAlign = "center";
 
-    const divElem = document.createElement("div");
+    const divElem = document.createElement("span");
     divElem.append(pElem);
+    divElem.className = "flash_card_flipper";
 
     return divElem;
   }

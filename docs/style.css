@@ -30,7 +30,7 @@ input[type="text"] {
 label[for="flash_card_loader"],
 label[for="exporter"],
 label[for="maker"],
-label.flash_card_slayer,
+label:not([for]),
 label[for="flash_card_maker"] {
   background: #eee;
   border: 1px solid rgb(169, 169, 169);
@@ -42,11 +42,27 @@ label[for="flash_card_maker"] {
 label[for="flash_card_loader"]:hover,
 label[for="exporter"]:hover,
 label[for="maker"]:hover,
-label.flash_card_slayer:hover,
+label:not([for]):hover,
 label[for="flash_card_maker"]:hover {
   background: #fff;
 }
 
 input[type="file"] {
   width: 4px;
+}
+
+div.flash_card_roles {
+  display: flex;
+}
+
+span.flash_card_flipper {
+  display: flex;
+}
+
+span.flash_card_slayer {
+  display: flex;
+}
+
+span.flash_card_slayer > label {
+  margin: 16px 0px 16px 0px;
 }
