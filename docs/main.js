@@ -81,7 +81,7 @@
 
     reader.readAsText(f);
 
-    const loaderElem = document.querySelector("div.loader");
+    const loaderElem = document.querySelector("span.loader");
 
     loaderElem.style.visibility = "collapse";
   }
