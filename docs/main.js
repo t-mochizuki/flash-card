@@ -129,11 +129,11 @@
     pElem.className = "question";
     pElem.style.textAlign = "center";
 
-    const divElem = document.createElement("span");
-    divElem.append(pElem);
-    divElem.className = "flash_card_flipper role";
+    const flashCardFlipperElem = document.createElement("span");
+    flashCardFlipperElem.append(pElem);
+    flashCardFlipperElem.className = "flash_card_flipper role";
 
-    return divElem;
+    return flashCardFlipperElem;
   }
 
   {
