@@ -48,22 +48,20 @@
 
     const reader = new FileReader();
 
-    reader.onload = (function() {
-      return function(e) {
-        const json = JSON.parse(e.target.result);
+    reader.onload = (e) => {
+      const json = JSON.parse(e.target.result);
 
-        const liFragment = new DocumentFragment();
-        json.forEach(({question, answer}) => {
-          if (question === undefined) return;
-          if (answer === undefined) return;
+      const liFragment = new DocumentFragment();
+      json.forEach(({question, answer}) => {
+        if (question === undefined) return;
+        if (answer === undefined) return;
 
-          liFragment.append(makeFlashCard(question));
+        liFragment.append(makeFlashCard(question));
 
-          flipper[question] = answer;
-        });
-        ulElem.append(liFragment);
-      };
-    })(f);
+        flipper[question] = answer;
+      });
+      ulElem.append(liFragment);
+    };
 
     reader.readAsText(f);
 
