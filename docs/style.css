@@ -30,7 +30,7 @@ input[type="text"] {
 label[for="flash_card_loader"],
 label[for="exporter"],
 label[for="maker"],
-label[for="flash_card_slayer"],
+label.flash_card_slayer,
 label[for="flash_card_maker"] {
   background: #eee;
   border: 1px solid rgb(169, 169, 169);
@@ -42,7 +42,7 @@ label[for="flash_card_maker"] {
 label[for="flash_card_loader"]:hover,
 label[for="exporter"]:hover,
 label[for="maker"]:hover,
-label[for="flash_card_slayer"]:hover,
+label.flash_card_slayer:hover,
 label[for="flash_card_maker"]:hover {
   background: #fff;
 }
