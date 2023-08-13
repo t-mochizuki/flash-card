@@ -5,7 +5,7 @@
 
   let flipper = new Object();
 
-  ulElem.addEventListener("click", () => {
+  function displayAnswerDialog() {
     if (answerDialogElem.open) return;
 
     const questionElem = ulElem.querySelector("li:hover > p.question");
@@ -19,7 +19,9 @@
     answerElem.innerText = answerText;
 
     answerDialogElem.show();
-  });
+  }
+
+  ulElem.addEventListener("click", displayAnswerDialog);
 
   function hideAnswerDialog() {
     if (answerDialogElem.open) {
