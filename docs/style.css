@@ -55,14 +55,10 @@ div.flash_card_roles {
   display: flex;
 }
 
-span.flash_card_flipper {
-  display: flex;
-}
-
-span.flash_card_slayer {
-  display: flex;
-}
-
 span.flash_card_slayer > label {
   margin: 16px 0px 16px 0px;
+}
+
+span.role {
+  display: flex;
 }

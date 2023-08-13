@@ -118,7 +118,7 @@
 
     const flashCardSlayerElem = document.createElement("span");
     flashCardSlayerElem.append(labelElem);
-    flashCardSlayerElem.className = "flash_card_slayer";
+    flashCardSlayerElem.className = "flash_card_slayer role";
 
     return flashCardSlayerElem;
   }
@@ -131,7 +131,7 @@
 
     const divElem = document.createElement("span");
     divElem.append(pElem);
-    divElem.className = "flash_card_flipper";
+    divElem.className = "flash_card_flipper role";
 
     return divElem;
   }
