@@ -21,11 +21,13 @@
     answerDialogElem.show();
   });
 
-  answerDialogElem.addEventListener("click", () => {
+  function hideAnswerDialog() {
     if (answerDialogElem.open) {
       answerDialogElem.close();
     }
-  });
+  }
+
+  answerDialogElem.addEventListener("click", hideAnswerDialog);
 
   const type = "application/json";
 
