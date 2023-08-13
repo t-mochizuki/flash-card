@@ -40,7 +40,17 @@
   }
 
   // The following function depends on makeFlashCard function,
-  //                                   makeSlayer function,
+  //                               and makeSlayer function.
+  function makeFlashCardRole(frontSideContent) {
+    const flashCardRoleElem = document.createElement("div");
+    flashCardRoleElem.append(makeFlashCard(frontSideContent));
+    flashCardRoleElem.append(makeSlayer(frontSideContent));
+    flashCardRoleElem.style.display = "flex";
+
+    return flashCardRoleElem;
+  }
+
+  // The following function depends on makeFlashCardRole function,
   //                                   flashCardListElem variable,
   //                               and flipper variable.
   function addFlashCards(e) {
@@ -51,10 +61,7 @@
       if (question === undefined) return;
       if (answer === undefined) return;
 
-      const flashCardRoleElem = document.createElement("div");
-      flashCardRoleElem.append(makeFlashCard(question));
-      flashCardRoleElem.append(makeSlayer(question));
-      flashCardFragment.append(flashCardRoleElem);
+      flashCardFragment.append(makeFlashCardRole(question));
 
       flipper[question] = answer;
     });
@@ -134,8 +141,7 @@
 
     // The following function depends on frontSideElem variable,
     //                                   backSideElem variable,
-    //                                   makeFlashCard function,
-    //                                   makeSlayer function,
+    //                                   makeFlashCardRole function,
     //                                   flashCardListElem variable,
     //                                   flipper variable
     //                               and makerDialogElem variable.
@@ -143,10 +149,7 @@
       const question = frontSideElem.value;
       const answer = backSideElem.value;
       if (question !== "" && answer !== "") {
-        const flashCardRoleElem = document.createElement("div");
-        flashCardRoleElem.append(makeFlashCard(question));
-        flashCardRoleElem.append(makeSlayer(question));
-        flashCardListElem.append(flashCardRoleElem);
+        flashCardListElem.append(makeFlashCardRole(question));
 
         flipper[question] = answer;
 
