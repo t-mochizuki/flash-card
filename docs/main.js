@@ -37,10 +37,26 @@
     fileLoaderElem.addEventListener("change", loadFlashCards, false);
   }
 
-  // The following function depends on type variable,
-  //                                   makeFlashCard function,
+  // The following function depends on makeFlashCard function,
   //                                   ulElem variable,
   //                               and flipper variable.
+  function addFlashCards(e) {
+    const json = JSON.parse(e.target.result);
+
+    const liFragment = new DocumentFragment();
+    json.forEach(({question, answer}) => {
+      if (question === undefined) return;
+      if (answer === undefined) return;
+
+      liFragment.append(makeFlashCard(question));
+
+      flipper[question] = answer;
+    });
+    ulElem.append(liFragment);
+  }
+
+  // The following function depends on type variable,
+  //                               and addFlashCards function.
   function loadFlashCards() {
     const f = this.files[0];
 
@@ -48,20 +64,7 @@
 
     const reader = new FileReader();
 
-    reader.onload = (e) => {
-      const json = JSON.parse(e.target.result);
-
-      const liFragment = new DocumentFragment();
-      json.forEach(({question, answer}) => {
-        if (question === undefined) return;
-        if (answer === undefined) return;
-
-        liFragment.append(makeFlashCard(question));
-
-        flipper[question] = answer;
-      });
-      ulElem.append(liFragment);
-    };
+    reader.addEventListener("load", addFlashCards);
 
     reader.readAsText(f);
 
