@@ -94,11 +94,34 @@
     makerDialogElem.show();
   }
 
-  {
-    const makerElem = document.getElementById("maker");
+  function makeOperator(id, label, listener) {
+    const labelElem = document.createElement("label");
+    labelElem.innerText = label;
+    labelElem.setAttribute("for", id);
 
-    makerElem.addEventListener("click", displayFlashCardMaker);
+    const inputElem = document.createElement("input");
+    inputElem.setAttribute("id", id);
+    inputElem.setAttribute("type", "button");
+    inputElem.addEventListener("click", listener);
+
+    const operator = document.createElement("span");
+    operator.className = "role";
+
+    operator.append(labelElem);
+    operator.append(inputElem);
+
+    return operator;
   }
+
+  class FlashCardMaker extends HTMLElement {
+    constructor() {
+      super();
+
+      this.append(makeOperator("maker", "Make a flash card", displayFlashCardMaker))
+    }
+  }
+
+  customElements.define("flash-card-maker", FlashCardMaker);
 
   function makeSlayer(question) {
     const inputElem = document.createElement("input");
@@ -191,22 +214,7 @@
     constructor() {
       super();
 
-      const exporter = document.createElement("span");
-      exporter.className = "role";
-
-      const labelElem = document.createElement("label");
-      labelElem.innerText = "Export flash cards";
-      labelElem.setAttribute("for", "exporter");
-
-      const inputElem = document.createElement("input");
-      inputElem.setAttribute("id", "exporter");
-      inputElem.setAttribute("type", "button");
-      inputElem.addEventListener("click", exportFlashCards);
-
-      exporter.append(labelElem);
-      exporter.append(inputElem);
-
-      this.append(exporter);
+      this.append(makeOperator("exporter", "Export flash cards", exportFlashCards));
     }
   }
 
