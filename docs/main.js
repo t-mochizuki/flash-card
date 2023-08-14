@@ -94,7 +94,7 @@
     makerDialogElem.show();
   }
 
-  function makeOperator(id, label, listener) {
+  function makeOperator({id, label, listener}) {
     const labelElem = document.createElement("label");
     labelElem.innerText = label;
     labelElem.setAttribute("for", id);
@@ -117,7 +117,7 @@
     constructor() {
       super();
 
-      this.append(makeOperator("maker", "Make a flash card", displayFlashCardMaker))
+      this.append(makeOperator({id: "maker", label: "Make a flash card", listener: displayFlashCardMaker}))
     }
   }
 
@@ -214,7 +214,7 @@
     constructor() {
       super();
 
-      this.append(makeOperator("exporter", "Export flash cards", exportFlashCards));
+      this.append(makeOperator({id: "exporter", label: "Export flash cards", listener: exportFlashCards}));
     }
   }
 
