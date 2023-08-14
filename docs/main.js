@@ -103,12 +103,6 @@
 
   const makerDialogElem = document.querySelector("dialog.maker_dialog");
 
-  function displayFlashCardMaker() {
-    if (makerDialogElem.open) return;
-
-    makerDialogElem.show();
-  }
-
   function makeOperator({id, label, inputType, eventType, listener}) {
     const inputElem = document.createElement("input");
     inputElem.setAttribute("type", inputType || "button");
@@ -130,7 +124,13 @@
     constructor() {
       super();
 
-      this.append(makeOperator({label: "Make a flash card", listener: displayFlashCardMaker}))
+      this.append(makeOperator({label: "Make a flash card", listener: this.show}))
+    }
+
+    show() {
+      if (makerDialogElem.open) return;
+
+      makerDialogElem.show();
     }
   }
 
