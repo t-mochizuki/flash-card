@@ -95,20 +95,18 @@
   }
 
   function makeOperator({id, label, listener}) {
-    const labelElem = document.createElement("label");
-    labelElem.innerText = label;
-    labelElem.setAttribute("for", id);
-
     const inputElem = document.createElement("input");
-    inputElem.setAttribute("id", id);
     inputElem.setAttribute("type", "button");
     inputElem.addEventListener("click", listener);
+
+    const labelElem = document.createElement("label");
+    labelElem.innerText = label;
+    labelElem.append(inputElem);
 
     const operator = document.createElement("span");
     operator.className = "role";
 
     operator.append(labelElem);
-    operator.append(inputElem);
 
     return operator;
   }

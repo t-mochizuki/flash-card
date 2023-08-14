@@ -28,8 +28,6 @@ input[type="text"] {
 }
 
 label[for="flash_card_loader"],
-label[for="exporter"],
-label[for="maker"],
 label:not([for]),
 label[for="flash_card_maker"] {
   background: #eee;
@@ -40,15 +38,9 @@ label[for="flash_card_maker"] {
 }
 
 label[for="flash_card_loader"]:hover,
-label[for="exporter"]:hover,
-label[for="maker"]:hover,
 label:not([for]):hover,
 label[for="flash_card_maker"]:hover {
   background: #fff;
-}
-
-input[type="file"] {
-  width: 4px;
 }
 
 div.flash_card_roles {
