@@ -115,7 +115,7 @@
     constructor() {
       super();
 
-      this.append(makeOperator({id: "maker", label: "Make a flash card", listener: displayFlashCardMaker}))
+      this.append(makeOperator({label: "Make a flash card", listener: displayFlashCardMaker}))
     }
   }
 
@@ -212,7 +212,7 @@
     constructor() {
       super();
 
-      this.append(makeOperator({id: "exporter", label: "Export flash cards", listener: exportFlashCards}));
+      this.append(makeOperator({label: "Export flash cards", listener: exportFlashCards}));
     }
   }
 
