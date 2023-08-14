@@ -187,9 +187,28 @@
     }, 0);
   }
 
-  {
-    const exporterElem = document.getElementById("exporter");
+  class FlashCardExporter extends HTMLElement {
+    constructor() {
+      super();
 
-    exporterElem.addEventListener("click", exportFlashCards);
+      const exporter = document.createElement("span");
+      exporter.className = "role";
+
+      const labelElem = document.createElement("label");
+      labelElem.innerText = "Export flash cards";
+      labelElem.setAttribute("for", "exporter");
+
+      const inputElem = document.createElement("input");
+      inputElem.setAttribute("id", "exporter");
+      inputElem.setAttribute("type", "button");
+      inputElem.addEventListener("click", exportFlashCards);
+
+      exporter.append(labelElem);
+      exporter.append(inputElem);
+
+      this.append(exporter);
+    }
   }
+
+  customElements.define("flash-card-exporter", FlashCardExporter);
 })();
