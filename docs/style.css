@@ -28,8 +28,7 @@ input[type="text"] {
 }
 
 label[for="flash_card_loader"],
-label:not([for]),
-label[for="flash_card_maker"] {
+label:not([for]) {
   background: #eee;
   border: 1px solid rgb(169, 169, 169);
   border-radius: 5px;
@@ -38,8 +37,7 @@ label[for="flash_card_maker"] {
 }
 
 label[for="flash_card_loader"]:hover,
-label:not([for]):hover,
-label[for="flash_card_maker"]:hover {
+label:not([for]):hover {
   background: #fff;
 }
 
