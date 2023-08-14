@@ -33,11 +33,15 @@
 
   const type = "application/json";
 
-  {
-    const flashCardLoaderElem = document.getElementById("flash_card_loader");
+  class FlashCardLoader extends HTMLElement {
+    constructor() {
+      super();
 
-    flashCardLoaderElem.addEventListener("change", loadFlashCards, false);
+      this.append(makeOperator({inputType: "file", eventType: "change", label: "Load flash cards", listener: loadFlashCards}))
+    }
   }
+
+  customElements.define("flash-card-loader", FlashCardLoader);
 
   // The following function depends on makeFlashCard function,
   //                               and makeSlayer function.
@@ -81,7 +85,7 @@
 
     reader.readAsText(f);
 
-    const loaderElem = document.querySelector("span.loader");
+    const loaderElem = document.querySelector("flash-card-loader");
 
     loaderElem.style.visibility = "collapse";
   }
@@ -94,10 +98,10 @@
     makerDialogElem.show();
   }
 
-  function makeOperator({id, label, listener}) {
+  function makeOperator({id, label, inputType, eventType, listener}) {
     const inputElem = document.createElement("input");
-    inputElem.setAttribute("type", "button");
-    inputElem.addEventListener("click", listener);
+    inputElem.setAttribute("type", inputType || "button");
+    inputElem.addEventListener(eventType || "click", listener);
 
     const labelElem = document.createElement("label");
     labelElem.innerText = label;
