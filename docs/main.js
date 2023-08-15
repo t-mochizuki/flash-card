@@ -1,5 +1,6 @@
 (() => {
   const flashCardDeckElem = document.createElement("div");
+  const makerDialogElem = document.createElement("dialog");
 
   class FlashCardDeck extends HTMLElement {
     constructor() {
@@ -105,12 +106,11 @@
     constructor() {
       super();
 
-      const dialogElem = document.createElement("dialog");
-      dialogElem.className = "maker_dialog";
+      makerDialogElem.className = "maker_dialog";
       const frontSideElem = this.makeTextInput({id: "question", label: "Front side content"});
-      dialogElem.append(frontSideElem);
+      makerDialogElem.append(frontSideElem);
       const backSideElem = this.makeTextInput({id: "answer", label: "Back side content"});
-      dialogElem.append(backSideElem);
+      makerDialogElem.append(backSideElem);
 
       const inputElem = document.createElement("input");
       inputElem.setAttribute("type", "submit");
@@ -123,9 +123,9 @@
       const divElem = document.createElement("div");
       divElem.append(labelElem);
 
-      dialogElem.append(divElem);
+      makerDialogElem.append(divElem);
 
-      this.append(dialogElem);
+      this.append(makerDialogElem);
     }
 
     // The following method depends on makeFlashCardRole function,
@@ -145,7 +145,7 @@
         backSideElem.value = "";
       }
 
-      document.querySelector("dialog.maker_dialog").close();
+      makerDialogElem.close();
     }
 
     makeTextInput({id, label}) {
@@ -192,8 +192,6 @@
     }
 
     show() {
-      const makerDialogElem = document.querySelector("dialog.maker_dialog");
-
       if (makerDialogElem.open) return;
 
       makerDialogElem.show();
