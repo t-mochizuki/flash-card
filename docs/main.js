@@ -5,13 +5,22 @@
   const answerElem = document.createElement("p");
   answerElem.style.textAlign = "center";
 
-  class FlashCardDeck extends HTMLElement {
+  class AnswerDialog extends HTMLElement {
     constructor() {
       super();
 
-      flashCardDeckElem.addEventListener("click", this.show);
+      answerDialogElem.append(answerElem);
 
-      this.append(flashCardDeckElem);
+      answerDialogElem.addEventListener("click", this.hide);
+
+      this.append(answerDialogElem);
+      this.setAttribute("id", "answer_dialog");
+    }
+
+    hide() {
+      if (answerDialogElem.open) {
+        answerDialogElem.close();
+      }
     }
 
     show() {
@@ -31,27 +40,20 @@
     }
   }
 
-  customElements.define("flash-card-deck", FlashCardDeck);
+  customElements.define("answer-dialog", AnswerDialog);
 
-  class AnswerDialog extends HTMLElement {
+  class FlashCardDeck extends HTMLElement {
     constructor() {
       super();
 
-      answerDialogElem.append(answerElem);
+      flashCardDeckElem.addEventListener("click", document.getElementById("answer_dialog").show);
 
-      answerDialogElem.addEventListener("click", this.hide);
-
-      this.append(answerDialogElem);
+      this.append(flashCardDeckElem);
     }
 
-    hide() {
-      if (answerDialogElem.open) {
-        answerDialogElem.close();
-      }
-    }
   }
 
-  customElements.define("answer-dialog", AnswerDialog);
+  customElements.define("flash-card-deck", FlashCardDeck);
 
   let flipper = new Object();
 
