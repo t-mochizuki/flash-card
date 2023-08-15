@@ -9,12 +9,12 @@
     constructor() {
       super();
 
-      flashCardDeckElem.addEventListener("click", this.displayAnswerDialog);
+      flashCardDeckElem.addEventListener("click", this.show);
 
       this.append(flashCardDeckElem);
     }
 
-    displayAnswerDialog() {
+    show() {
       if (answerDialogElem.open) return;
 
       const questionElem = flashCardDeckElem.querySelector("span:hover > p.question");
