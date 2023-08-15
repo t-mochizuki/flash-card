@@ -39,12 +39,12 @@
 
       answerDialogElem.append(answerElem);
 
-      answerDialogElem.addEventListener("click", this.hideAnswerDialog);
+      answerDialogElem.addEventListener("click", this.hide);
 
       this.append(answerDialogElem);
     }
 
-    hideAnswerDialog() {
+    hide() {
       if (answerDialogElem.open) {
         answerDialogElem.close();
       }
