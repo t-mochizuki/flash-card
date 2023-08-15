@@ -101,31 +101,15 @@
     loaderElem.style.visibility = "collapse";
   }
 
-  function makeTextInput({id, label}) {
-    const inputElem = document.createElement("input");
-    inputElem.setAttribute("type", "text");
-    inputElem.setAttribute("id", id);
-
-    const labelElem = document.createElement("label");
-    labelElem.innerText = label;
-    labelElem.setAttribute("for", id);
-    labelElem.append(inputElem);
-
-    const divElem = document.createElement("div");
-    divElem.append(labelElem);
-
-    return divElem;
-  }
-
   class MakerDialog extends HTMLElement {
     constructor() {
       super();
 
       const dialogElem = document.createElement("dialog");
       dialogElem.className = "maker_dialog";
-      const frontSideElem = makeTextInput({id: "question", label: "Front side content"});
+      const frontSideElem = this.makeTextInput({id: "question", label: "Front side content"});
       dialogElem.append(frontSideElem);
-      const backSideElem = makeTextInput({id: "answer", label: "Back side content"});
+      const backSideElem = this.makeTextInput({id: "answer", label: "Back side content"});
       dialogElem.append(backSideElem);
 
       const inputElem = document.createElement("input");
@@ -144,9 +128,9 @@
       this.append(dialogElem);
     }
 
-    // The following function depends on makeFlashCardRole function,
-    //                                   flashCardDeckElem variable,
-    //                               and flipper variable.
+    // The following method depends on makeFlashCardRole function,
+    //                                 flashCardDeckElem variable,
+    //                             and flipper variable.
     addFlashCard() {
       const frontSideElem = document.getElementById("question");
       const backSideElem = document.getElementById("answer");
@@ -162,6 +146,22 @@
       }
 
       document.querySelector("dialog.maker_dialog").close();
+    }
+
+    makeTextInput({id, label}) {
+      const inputElem = document.createElement("input");
+      inputElem.setAttribute("type", "text");
+      inputElem.setAttribute("id", id);
+
+      const labelElem = document.createElement("label");
+      labelElem.innerText = label;
+      labelElem.setAttribute("for", id);
+      labelElem.append(inputElem);
+
+      const divElem = document.createElement("div");
+      divElem.append(labelElem);
+
+      return divElem;
     }
   }
 
