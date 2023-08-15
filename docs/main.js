@@ -137,24 +137,17 @@
   customElements.define("flash-card-maker", FlashCardMaker);
 
   function makeSlayer(question) {
-    const inputElem = document.createElement("input");
-    inputElem.setAttribute("type", "submit");
-    inputElem.addEventListener("click", () => {
+    function deleteFlashCard() {
       flashCardDeckElem.childNodes.forEach((flashCardElem) => {
         if (question === flashCardElem.children[0].innerText) {
           delete flipper[flashCardElem.children[0].innerText];
           flashCardElem.remove();
         }
       });
-    });
+    }
 
-    const labelElem = document.createElement("label");
-    labelElem.innerText = "Delete the flash card";
-    labelElem.append(inputElem);
-
-    const flashCardSlayerElem = document.createElement("span");
-    flashCardSlayerElem.append(labelElem);
-    flashCardSlayerElem.className = "flash_card_slayer role";
+    const flashCardSlayerElem = makeOperator({inputType: "submit", label: "Delete the flash card", listener: deleteFlashCard});
+    flashCardSlayerElem.classList += " flash_card_slayer";
 
     return flashCardSlayerElem;
   }
