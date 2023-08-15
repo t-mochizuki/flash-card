@@ -1,6 +1,9 @@
 (() => {
   const flashCardDeckElem = document.createElement("div");
   const makerDialogElem = document.createElement("dialog");
+  const answerDialogElem = document.createElement("dialog");
+  const answerElem = document.createElement("p");
+  answerElem.style.textAlign = "center";
 
   class FlashCardDeck extends HTMLElement {
     constructor() {
@@ -12,8 +15,17 @@
 
   customElements.define("flash-card-deck", FlashCardDeck);
 
-  const answerDialogElem = document.querySelector("dialog.answer_dialog");
-  const answerElem = document.querySelector("dialog.answer_dialog > p.answer");
+  class AnswerDialog extends HTMLElement {
+    constructor() {
+      super();
+
+      answerDialogElem.append(answerElem);
+
+      this.append(answerDialogElem);
+    }
+  }
+
+  customElements.define("answer-dialog", AnswerDialog);
 
   let flipper = new Object();
 
