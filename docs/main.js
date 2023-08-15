@@ -18,8 +18,8 @@
     }
 
     hide() {
-      if (answerDialogElem.open) {
-        answerDialogElem.close();
+      if (this.open) {
+        this.close();
       }
     }
 
