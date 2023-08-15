@@ -101,7 +101,71 @@
     loaderElem.style.visibility = "collapse";
   }
 
-  const makerDialogElem = document.querySelector("dialog.maker_dialog");
+  function makeTextInput({id, label}) {
+    const inputElem = document.createElement("input");
+    inputElem.setAttribute("type", "text");
+    inputElem.setAttribute("id", id);
+
+    const labelElem = document.createElement("label");
+    labelElem.innerText = label;
+    labelElem.setAttribute("for", id);
+    labelElem.append(inputElem);
+
+    const divElem = document.createElement("div");
+    divElem.append(labelElem);
+
+    return divElem;
+  }
+
+  class MakerDialog extends HTMLElement {
+    constructor() {
+      super();
+
+      const dialogElem = document.createElement("dialog");
+      dialogElem.className = "maker_dialog";
+      const frontSideElem = makeTextInput({id: "question", label: "Front side content"});
+      dialogElem.append(frontSideElem);
+      const backSideElem = makeTextInput({id: "answer", label: "Back side content"});
+      dialogElem.append(backSideElem);
+
+      const inputElem = document.createElement("input");
+      inputElem.setAttribute("type", "submit");
+      inputElem.addEventListener("click", this.addFlashCard);
+
+      const labelElem = document.createElement("label");
+      labelElem.innerText = "Make a flash card";
+      labelElem.append(inputElem);
+
+      const divElem = document.createElement("div");
+      divElem.append(labelElem);
+
+      dialogElem.append(divElem);
+
+      this.append(dialogElem);
+    }
+
+    // The following function depends on makeFlashCardRole function,
+    //                                   flashCardDeckElem variable,
+    //                               and flipper variable.
+    addFlashCard() {
+      const frontSideElem = document.getElementById("question");
+      const backSideElem = document.getElementById("answer");
+      const question = frontSideElem.value;
+      const answer = backSideElem.value;
+      if (question !== "" && answer !== "") {
+        flashCardDeckElem.append(makeFlashCardRole(question));
+
+        flipper[question] = answer;
+
+        frontSideElem.value = "";
+        backSideElem.value = "";
+      }
+
+      document.querySelector("dialog.maker_dialog").close();
+    }
+  }
+
+  customElements.define("maker-dialog", MakerDialog);
 
   function makeOperator({id, label, inputType, eventType, listener}) {
     const inputElem = document.createElement("input");
@@ -128,6 +192,8 @@
     }
 
     show() {
+      const makerDialogElem = document.querySelector("dialog.maker_dialog");
+
       if (makerDialogElem.open) return;
 
       makerDialogElem.show();
@@ -163,38 +229,6 @@
     flashCardFlipperElem.className = "flash_card_flipper role";
 
     return flashCardFlipperElem;
-  }
-
-  {
-    const frontSideElem = document.getElementById("question");
-    const backSideElem = document.getElementById("answer");
-
-    // The following function depends on frontSideElem variable,
-    //                                   backSideElem variable,
-    //                                   makeFlashCardRole function,
-    //                                   flashCardDeckElem variable,
-    //                                   flipper variable
-    //                               and makerDialogElem variable.
-    function addFlashCard() {
-      const question = frontSideElem.value;
-      const answer = backSideElem.value;
-      if (question !== "" && answer !== "") {
-        flashCardDeckElem.append(makeFlashCardRole(question));
-
-        flipper[question] = answer;
-
-        frontSideElem.value = "";
-        backSideElem.value = "";
-      }
-
-      makerDialogElem.close();
-    }
-  }
-
-  {
-    const flashCardMakerElem = document.getElementById("flash_card_maker");
-
-    flashCardMakerElem.addEventListener("click", addFlashCard);
   }
 
   class FlashCardExporter extends HTMLElement {
