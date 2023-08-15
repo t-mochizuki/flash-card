@@ -125,6 +125,7 @@
       makerDialogElem.append(makeOperator({label: "Make a flash card", inputType: "submit", listener: this.addFlashCard}));
 
       this.append(makerDialogElem);
+      this.setAttribute("id", "maker_dialog");
     }
 
     // The following method depends on makeFlashCardRole function,
@@ -145,6 +146,12 @@
       }
 
       makerDialogElem.close();
+    }
+
+    show() {
+      if (makerDialogElem.open) return;
+
+      makerDialogElem.show();
     }
   }
 
@@ -177,13 +184,7 @@
     constructor() {
       super();
 
-      this.append(makeOperator({label: "Make a flash card", listener: this.show}))
-    }
-
-    show() {
-      if (makerDialogElem.open) return;
-
-      makerDialogElem.show();
+      this.append(makeOperator({label: "Make a flash card", listener: document.getElementById("maker_dialog").show}))
     }
   }
 
