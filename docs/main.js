@@ -9,7 +9,25 @@
     constructor() {
       super();
 
+      flashCardDeckElem.addEventListener("click", this.displayAnswerDialog);
+
       this.append(flashCardDeckElem);
+    }
+
+    displayAnswerDialog() {
+      if (answerDialogElem.open) return;
+
+      const questionElem = flashCardDeckElem.querySelector("span:hover > p.question");
+
+      if (questionElem === null) return;
+
+      const answerText = flipper[questionElem.innerText];
+
+      if (answerText === undefined) return;
+
+      answerElem.innerText = answerText;
+
+      answerDialogElem.show();
     }
   }
 
@@ -21,39 +39,21 @@
 
       answerDialogElem.append(answerElem);
 
+      answerDialogElem.addEventListener("click", this.hideAnswerDialog);
+
       this.append(answerDialogElem);
+    }
+
+    hideAnswerDialog() {
+      if (answerDialogElem.open) {
+        answerDialogElem.close();
+      }
     }
   }
 
   customElements.define("answer-dialog", AnswerDialog);
 
   let flipper = new Object();
-
-  function displayAnswerDialog() {
-    if (answerDialogElem.open) return;
-
-    const questionElem = flashCardDeckElem.querySelector("span:hover > p.question");
-
-    if (questionElem === null) return;
-
-    const answerText = flipper[questionElem.innerText];
-
-    if (answerText === undefined) return;
-
-    answerElem.innerText = answerText;
-
-    answerDialogElem.show();
-  }
-
-  flashCardDeckElem.addEventListener("click", displayAnswerDialog);
-
-  function hideAnswerDialog() {
-    if (answerDialogElem.open) {
-      answerDialogElem.close();
-    }
-  }
-
-  answerDialogElem.addEventListener("click", hideAnswerDialog);
 
   const type = "application/json";
 
