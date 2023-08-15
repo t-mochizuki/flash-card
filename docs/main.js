@@ -107,23 +107,9 @@
       super();
 
       makerDialogElem.className = "maker_dialog";
-      const frontSideElem = this.makeTextInput({id: "question", label: "Front side content"});
-      makerDialogElem.append(frontSideElem);
-      const backSideElem = this.makeTextInput({id: "answer", label: "Back side content"});
-      makerDialogElem.append(backSideElem);
-
-      const inputElem = document.createElement("input");
-      inputElem.setAttribute("type", "submit");
-      inputElem.addEventListener("click", this.addFlashCard);
-
-      const labelElem = document.createElement("label");
-      labelElem.innerText = "Make a flash card";
-      labelElem.append(inputElem);
-
-      const divElem = document.createElement("div");
-      divElem.append(labelElem);
-
-      makerDialogElem.append(divElem);
+      makerDialogElem.append(makeOperator({id: "question", inputType: "text", label: "Front side content"}));
+      makerDialogElem.append(makeOperator({id: "answer", inputType: "text", label: "Back side content"}));
+      makerDialogElem.append(makeOperator({label: "Make a flash card", inputType: "submit", listener: this.addFlashCard}));
 
       this.append(makerDialogElem);
     }
@@ -147,22 +133,6 @@
 
       makerDialogElem.close();
     }
-
-    makeTextInput({id, label}) {
-      const inputElem = document.createElement("input");
-      inputElem.setAttribute("type", "text");
-      inputElem.setAttribute("id", id);
-
-      const labelElem = document.createElement("label");
-      labelElem.innerText = label;
-      labelElem.setAttribute("for", id);
-      labelElem.append(inputElem);
-
-      const divElem = document.createElement("div");
-      divElem.append(labelElem);
-
-      return divElem;
-    }
   }
 
   customElements.define("maker-dialog", MakerDialog);
@@ -170,10 +140,16 @@
   function makeOperator({id, label, inputType, eventType, listener}) {
     const inputElem = document.createElement("input");
     inputElem.setAttribute("type", inputType || "button");
-    inputElem.addEventListener(eventType || "click", listener);
+    if (listener !== undefined) {
+      inputElem.addEventListener(eventType || "click", listener);
+    }
 
     const labelElem = document.createElement("label");
     labelElem.innerText = label;
+    if (id !== undefined) {
+      inputElem.setAttribute("id", id);
+      labelElem.setAttribute("for", id);
+    }
     labelElem.append(inputElem);
 
     const operator = document.createElement("span");

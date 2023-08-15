@@ -6,7 +6,7 @@ dialog {
   top: 10vh;
 }
 
-dialog.maker_dialog > div,
+dialog.maker_dialog > span,
 dialog.answer_dialog > div {
   padding: 2px;
   display: flex;
