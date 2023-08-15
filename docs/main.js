@@ -61,7 +61,7 @@
     const flashCardRoleElem = document.createElement("div");
     flashCardRoleElem.append(makeFlashCard(frontSideContent));
     flashCardRoleElem.append(makeSlayer(frontSideContent));
-    flashCardRoleElem.className = "flash_card_roles";
+    flashCardRoleElem.className = "flash_card_role";
 
     return flashCardRoleElem;
   }

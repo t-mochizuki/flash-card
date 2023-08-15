@@ -39,7 +39,7 @@ label:not([for]):hover {
   background: #fff;
 }
 
-div.flash_card_roles {
+div.flash_card_role {
   display: flex;
 }
 
