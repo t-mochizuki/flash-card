@@ -61,7 +61,25 @@
     constructor() {
       super();
 
-      this.append(makeOperator({inputType: "file", eventType: "change", label: "Load flash cards", listener: loadFlashCards}))
+      this.append(makeOperator({inputType: "file", eventType: "change", label: "Load flash cards", listener: this.loadFlashCards}))
+    }
+
+    // The following method depends on type variable,
+    //                             and addFlashCards function.
+    loadFlashCards() {
+      const f = this.files[0];
+
+      if (f.type !== type) return;
+
+      const reader = new FileReader();
+
+      reader.addEventListener("load", addFlashCards);
+
+      reader.readAsText(f);
+
+      const loaderElem = document.querySelector("flash-card-loader")
+
+      loaderElem.style.visibility = "collapse";
     }
   }
 
@@ -94,24 +112,6 @@
       flipper[question] = answer;
     });
     flashCardDeckElem.append(flashCardFragment);
-  }
-
-  // The following function depends on type variable,
-  //                               and addFlashCards function.
-  function loadFlashCards() {
-    const f = this.files[0];
-
-    if (f.type !== type) return;
-
-    const reader = new FileReader();
-
-    reader.addEventListener("load", addFlashCards);
-
-    reader.readAsText(f);
-
-    const loaderElem = document.querySelector("flash-card-loader");
-
-    loaderElem.style.visibility = "collapse";
   }
 
   class MakerDialog extends HTMLElement {
