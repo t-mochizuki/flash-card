@@ -64,8 +64,25 @@
       this.append(makeOperator({inputType: "file", eventType: "change", label: "Load flash cards", listener: this.loadFlashCards}))
     }
 
-    // The following method depends on type variable,
-    //                             and addFlashCards function.
+    // The following method depends on makeFlashCardRole function,
+    //                                 flashCardDeckElem variable,
+    //                             and flipper variable.
+    addFlashCards(e) {
+      const json = JSON.parse(e.target.result);
+
+      const flashCardFragment = new DocumentFragment();
+      json.forEach(({question, answer}) => {
+        if (question === undefined) return;
+        if (answer === undefined) return;
+
+        flashCardFragment.append(makeFlashCardRole(question));
+
+        flipper[question] = answer;
+      });
+      flashCardDeckElem.append(flashCardFragment);
+    }
+
+    // The following method depends on type variable.
     loadFlashCards() {
       const f = this.files[0];
 
@@ -73,11 +90,11 @@
 
       const reader = new FileReader();
 
-      reader.addEventListener("load", addFlashCards);
+      const loaderElem = document.querySelector("flash-card-loader")
+
+      reader.addEventListener("load", loaderElem.addFlashCards);
 
       reader.readAsText(f);
-
-      const loaderElem = document.querySelector("flash-card-loader")
 
       loaderElem.style.visibility = "collapse";
     }
@@ -94,24 +111,6 @@
     flashCardRoleElem.className = "flash_card_role";
 
     return flashCardRoleElem;
-  }
-
-  // The following function depends on makeFlashCardRole function,
-  //                                   flashCardDeckElem variable,
-  //                               and flipper variable.
-  function addFlashCards(e) {
-    const json = JSON.parse(e.target.result);
-
-    const flashCardFragment = new DocumentFragment();
-    json.forEach(({question, answer}) => {
-      if (question === undefined) return;
-      if (answer === undefined) return;
-
-      flashCardFragment.append(makeFlashCardRole(question));
-
-      flipper[question] = answer;
-    });
-    flashCardDeckElem.append(flashCardFragment);
   }
 
   class MakerDialog extends HTMLElement {
