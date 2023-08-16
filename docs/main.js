@@ -26,7 +26,7 @@
     show() {
       if (answerDialogElem.open) return;
 
-      const questionElem = flashCardDeckElem.querySelector("span:hover > p.question");
+      const questionElem = this.querySelector("span:hover > p.question");
 
       if (questionElem === null) return;
 
