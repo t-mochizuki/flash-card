@@ -35,5 +35,14 @@ label:not([for]):hover {
 .role {
   padding: 2px;
   display: flex;
-  justify-content: center;
+}
+
+.main {
+  float: left;
+  width: 60vw;
+}
+
+.menu {
+  float: right;
+  width: 20vw;
 }
