@@ -28,7 +28,7 @@
     show() {
       if (answerDialogElem.open) return;
 
-      const questionElem = this.querySelector("span:hover > p.question");
+      const questionElem = this.querySelector("span:hover > span.question");
 
       if (questionElem === null) return;
 
@@ -205,14 +205,14 @@
   }
 
   function makeFlashCard(question) {
-    const pElem = document.createElement("p");
+    const pElem = document.createElement("span");
     pElem.innerText = question;
     pElem.className = "question";
     pElem.style.textAlign = "center";
 
     const flashCardFlipperElem = document.createElement("span");
     flashCardFlipperElem.append(pElem);
-    flashCardFlipperElem.className = "flash_card_flipper role";
+    flashCardFlipperElem.className = "role";
 
     return flashCardFlipperElem;
   }
