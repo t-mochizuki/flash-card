@@ -1,4 +1,6 @@
 (() => {
+  let flipper = new Object();
+  const type = "application/json";
   const flashCardDeckElem = document.createElement("div");
   const makerDialogElem = document.createElement("dialog");
   const answerDialogElem = document.createElement("dialog");
@@ -50,14 +52,9 @@
 
       this.append(flashCardDeckElem);
     }
-
   }
 
   customElements.define("flash-card-deck", FlashCardDeck);
-
-  let flipper = new Object();
-
-  const type = "application/json";
 
   class FlashCardLoader extends HTMLElement {
     constructor() {
@@ -104,17 +101,6 @@
 
   customElements.define("flash-card-loader", FlashCardLoader);
 
-  // The following function depends on makeFlashCard function,
-  //                               and makeSlayer function.
-  function makeFlashCardRole(frontSideContent) {
-    const flashCardRoleElem = document.createElement("div");
-    flashCardRoleElem.append(makeFlashCard(frontSideContent));
-    flashCardRoleElem.append(makeSlayer(frontSideContent));
-    flashCardRoleElem.className = "flash_card_role";
-
-    return flashCardRoleElem;
-  }
-
   class MakerDialog extends HTMLElement {
     constructor() {
       super();
@@ -157,29 +143,6 @@
 
   customElements.define("maker-dialog", MakerDialog);
 
-  function makeOperator({id, label, inputType, eventType, listener}) {
-    const inputElem = document.createElement("input");
-    inputElem.setAttribute("type", inputType || "button");
-    if (listener !== undefined) {
-      inputElem.addEventListener(eventType || "click", listener);
-    }
-
-    const labelElem = document.createElement("label");
-    labelElem.innerText = label;
-    if (id !== undefined) {
-      inputElem.setAttribute("id", id);
-      labelElem.setAttribute("for", id);
-    }
-    labelElem.append(inputElem);
-
-    const operator = document.createElement("span");
-    operator.className = "role";
-
-    operator.append(labelElem);
-
-    return operator;
-  }
-
   class FlashCardMaker extends HTMLElement {
     constructor() {
       super();
@@ -189,35 +152,6 @@
   }
 
   customElements.define("flash-card-maker", FlashCardMaker);
-
-  function makeSlayer(question) {
-    function deleteFlashCard() {
-      flashCardDeckElem.childNodes.forEach((flashCardElem) => {
-        if (question === flashCardElem.children[0].innerText) {
-          delete flipper[flashCardElem.children[0].innerText];
-          flashCardElem.remove();
-        }
-      });
-    }
-
-    const flashCardSlayerElem = makeOperator({inputType: "submit", label: "Delete the flash card", listener: deleteFlashCard});
-    flashCardSlayerElem.classList += " flash_card_slayer";
-
-    return flashCardSlayerElem;
-  }
-
-  function makeFlashCard(question) {
-    const pElem = document.createElement("p");
-    pElem.innerText = question;
-    pElem.className = "question";
-    pElem.style.textAlign = "center";
-
-    const flashCardFlipperElem = document.createElement("span");
-    flashCardFlipperElem.append(pElem);
-    flashCardFlipperElem.className = "flash_card_flipper role";
-
-    return flashCardFlipperElem;
-  }
 
   class FlashCardExporter extends HTMLElement {
     constructor() {
@@ -247,4 +181,49 @@
   }
 
   customElements.define("flash-card-exporter", FlashCardExporter);
+
+  function makeOperator({id, label, inputType, eventType, listener}) {
+    const inputElem = document.createElement("input");
+    inputElem.setAttribute("type", inputType || "button");
+    if (listener !== undefined) {
+      inputElem.addEventListener(eventType || "click", listener);
+    }
+
+    const labelElem = document.createElement("label");
+    labelElem.innerText = label;
+    if (id !== undefined) {
+      inputElem.setAttribute("id", id);
+      labelElem.setAttribute("for", id);
+    }
+    labelElem.append(inputElem);
+
+    const operator = document.createElement("span");
+    operator.className = "role";
+
+    operator.append(labelElem);
+
+    return operator;
+  }
+
+  // The following function depends on makeFlashCard function.
+  function makeFlashCardRole(frontSideContent) {
+    const flashCardRoleElem = document.createElement("div");
+    flashCardRoleElem.append(makeFlashCard(frontSideContent));
+    flashCardRoleElem.className = "flash_card_role";
+
+    return flashCardRoleElem;
+  }
+
+  function makeFlashCard(question) {
+    const pElem = document.createElement("p");
+    pElem.innerText = question;
+    pElem.className = "question";
+    pElem.style.textAlign = "center";
+
+    const flashCardFlipperElem = document.createElement("span");
+    flashCardFlipperElem.append(pElem);
+    flashCardFlipperElem.className = "flash_card_flipper role";
+
+    return flashCardFlipperElem;
+  }
 })();

@@ -42,10 +42,6 @@ div.flash_card_role {
   display: flex;
 }
 
-span.flash_card_slayer > label {
-  margin: 16px 0px 16px 0px;
-}
-
 span.role {
   display: flex;
 }
