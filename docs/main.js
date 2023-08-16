@@ -105,7 +105,6 @@
     constructor() {
       super();
 
-      makerDialogElem.className = "maker_dialog";
       makerDialogElem.append(makeOperator({id: "question", inputType: "text", label: "Front side content"}));
       makerDialogElem.append(makeOperator({id: "answer", inputType: "text", label: "Back side content"}));
       makerDialogElem.append(makeOperator({label: "Make a flash card", inputType: "submit", listener: this.addFlashCard}));

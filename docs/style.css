@@ -6,12 +6,6 @@ dialog {
   top: 10vh;
 }
 
-dialog.maker_dialog > span {
-  padding: 2px;
-  display: flex;
-  justify-content: center;
-}
-
 input[type="file"],
 input[type="button"],
 input[type="submit"] {
@@ -38,6 +32,8 @@ label:not([for]):hover {
   background: #fff;
 }
 
-span.role {
+.role {
+  padding: 2px;
   display: flex;
+  justify-content: center;
 }
