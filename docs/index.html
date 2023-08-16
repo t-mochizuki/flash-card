@@ -7,19 +7,25 @@
     <link href="style.css" rel="stylesheet">
   </head>
   <body>
-    <h1 style="text-align: center">Welcome to Flash Card</h1>
+    <header class="header">
+      <h1 style="text-align: center">Welcome to Flash Card</h1>
+    </header>
 
-    <div>
-      <maker-dialog></maker-dialog>
-      <answer-dialog></answer-dialog>
+    <div class="wrapper">
+      <div class="main">
+        <maker-dialog></maker-dialog>
+        <answer-dialog></answer-dialog>
+        <flash-card-deck></flash-card-deck>
+      </div>
 
-      <flash-card-deck></flash-card-deck>
-
-      <div style="display: flex;">
+      <div class="menu" style="display: flex;">
         <flash-card-loader></flash-card-loader>
         <flash-card-exporter></flash-card-exporter>
         <flash-card-maker></flash-card-maker>
       </div>
     </div>
+
+    <footer class="footer">
+    </footer>
   </body>
 </html>
