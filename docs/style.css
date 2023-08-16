@@ -39,7 +39,7 @@ label:not([for]):hover {
 
 .card {
   margin: 10px;
-  display: inline;
+  display: inline-block;
   background: #eee;
 }
 
