@@ -63,7 +63,7 @@
       this.append(makeOperator({inputType: "file", eventType: "change", label: "Load flash cards", listener: this.loadFlashCards}))
     }
 
-    // The following method depends on makeFlashCardRole function,
+    // The following method depends on makeFlashCard function,
     //                                 flashCardDeckElem variable,
     //                             and flipper variable.
     addFlashCards(e) {
@@ -74,7 +74,7 @@
         if (question === undefined) return;
         if (answer === undefined) return;
 
-        flashCardFragment.append(makeFlashCardRole(question));
+        flashCardFragment.append(makeFlashCard(question));
 
         flipper[question] = answer;
       });
@@ -114,7 +114,7 @@
       this.setAttribute("id", "maker_dialog");
     }
 
-    // The following method depends on makeFlashCardRole function,
+    // The following method depends on makeFlashCard function,
     //                                 flashCardDeckElem variable,
     //                             and flipper variable.
     addFlashCard() {
@@ -123,7 +123,7 @@
       const question = frontSideElem.value;
       const answer = backSideElem.value;
       if (question !== "" && answer !== "") {
-        flashCardDeckElem.append(makeFlashCardRole(question));
+        flashCardDeckElem.append(makeFlashCard(question));
 
         flipper[question] = answer;
 
@@ -203,15 +203,6 @@
     operator.append(labelElem);
 
     return operator;
-  }
-
-  // The following function depends on makeFlashCard function.
-  function makeFlashCardRole(frontSideContent) {
-    const flashCardRoleElem = document.createElement("div");
-    flashCardRoleElem.append(makeFlashCard(frontSideContent));
-    flashCardRoleElem.className = "flash_card_role";
-
-    return flashCardRoleElem;
   }
 
   function makeFlashCard(question) {
