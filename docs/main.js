@@ -67,9 +67,10 @@
         if (question === undefined) return;
         if (answer === undefined) return;
 
-        flashCardFragment.append(makeFlashCard(question));
-
-        flipper[question] = answer;
+        if (!flipper.hasOwnProperty(question)) {
+          flashCardFragment.append(makeFlashCard(question));
+          flipper[question] = answer;
+        }
       });
       document.getElementById("deck").append(flashCardFragment);
     }
@@ -82,13 +83,9 @@
 
       const reader = new FileReader();
 
-      const loaderElem = document.querySelector("flash-card-loader")
-
-      reader.addEventListener("load", loaderElem.addFlashCards);
+      reader.addEventListener("load", document.getElementById("loader").addFlashCards);
 
       reader.readAsText(f);
-
-      loaderElem.style.visibility = "collapse";
     }
   }
 
@@ -111,9 +108,11 @@
       const question = frontSideElem.value;
       const answer = backSideElem.value;
       if (question !== "" && answer !== "") {
-        document.getElementById("deck").append(makeFlashCard(question));
 
-        flipper[question] = answer;
+        if (!flipper.hasOwnProperty(question)) {
+          document.getElementById("deck").append(makeFlashCard(question));
+          flipper[question] = answer;
+        }
 
         frontSideElem.value = "";
         backSideElem.value = "";
