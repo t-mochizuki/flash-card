@@ -2,7 +2,6 @@
   let flipper = new Object();
   const type = "application/json";
   const flashCardDeckElem = document.createElement("div");
-  const makerDialogElem = document.createElement("dialog");
   const answerDialogElem = document.createElement("dialog");
   const answerElem = document.createElement("p");
   answerElem.style.textAlign = "center";
@@ -101,16 +100,13 @@
 
   customElements.define("flash-card-loader", FlashCardLoader);
 
-  class MakerDialog extends HTMLElement {
+  class MakerDialog extends HTMLDialogElement {
     constructor() {
       super();
 
-      makerDialogElem.append(makeOperator({id: "question", inputType: "text", label: "Front side content"}));
-      makerDialogElem.append(makeOperator({id: "answer", inputType: "text", label: "Back side content"}));
-      makerDialogElem.append(makeOperator({label: "Make a flash card", inputType: "submit", listener: this.addFlashCard}));
-
-      this.append(makerDialogElem);
-      this.setAttribute("id", "maker_dialog");
+      this.append(makeOperator({id: "question", inputType: "text", label: "Front side content"}));
+      this.append(makeOperator({id: "answer", inputType: "text", label: "Back side content"}));
+      this.append(makeOperator({label: "Make a flash card", inputType: "submit", listener: this.addFlashCard}));
     }
 
     // The following method depends on makeFlashCard function,
@@ -130,23 +126,27 @@
         backSideElem.value = "";
       }
 
-      makerDialogElem.close();
-    }
-
-    show() {
-      if (makerDialogElem.open) return;
-
-      makerDialogElem.show();
+      const makerDialog = document.getElementById("maker_dialog");
+      makerDialog.close();
     }
   }
 
-  customElements.define("maker-dialog", MakerDialog);
+  customElements.define("maker-dialog", MakerDialog, {extends: "dialog"});
 
   class FlashCardMaker extends HTMLElement {
     constructor() {
       super();
 
-      this.append(makeOperator({label: "Make a flash card", listener: document.getElementById("maker_dialog").show}))
+      const makerDialog = document.getElementById("maker_dialog");
+      this.append(
+        makeOperator({
+          label: "Make a flash card",
+          listener: () => {
+            if (makerDialog.open) return;
+            makerDialog.show();
+          }
+        })
+      );
     }
   }
 
