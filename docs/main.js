@@ -2,20 +2,16 @@
   let flipper = new Object();
   const type = "application/json";
   const flashCardDeckElem = document.createElement("div");
-  const answerDialogElem = document.createElement("dialog");
   const answerElem = document.createElement("p");
   answerElem.style.textAlign = "center";
 
-  class AnswerDialog extends HTMLElement {
+  class AnswerDialog extends HTMLDialogElement {
     constructor() {
       super();
 
-      answerDialogElem.append(answerElem);
+      this.append(answerElem);
 
-      answerDialogElem.addEventListener("click", this.hide);
-
-      this.append(answerDialogElem);
-      this.setAttribute("id", "answer_dialog");
+      this.addEventListener("click", this.hide);
     }
 
     hide() {
@@ -24,8 +20,10 @@
       }
     }
 
-    show() {
-      if (answerDialogElem.open) return;
+    display() {
+      const answerDialog = document.getElementById("answer_dialog");
+
+      if (answerDialog.open) return;
 
       const questionElem = this.querySelector("span:hover > span.card");
 
@@ -37,17 +35,18 @@
 
       answerElem.innerText = answerText;
 
-      answerDialogElem.show();
+      answerDialog.show();
     }
   }
 
-  customElements.define("answer-dialog", AnswerDialog);
+  customElements.define("answer-dialog", AnswerDialog, {extends: "dialog"});
 
   class FlashCardDeck extends HTMLElement {
     constructor() {
       super();
 
-      flashCardDeckElem.addEventListener("click", document.getElementById("answer_dialog").show);
+      const answerDialog = document.getElementById("answer_dialog");
+      flashCardDeckElem.addEventListener("click", answerDialog.display);
 
       this.append(flashCardDeckElem);
     }
