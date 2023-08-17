@@ -1,7 +1,6 @@
 (() => {
   let flipper = new Object();
   const type = "application/json";
-  const flashCardDeckElem = document.createElement("div");
   const answerElem = document.createElement("p");
   answerElem.style.textAlign = "center";
 
@@ -41,18 +40,15 @@
 
   customElements.define("answer-dialog", AnswerDialog, {extends: "dialog"});
 
-  class FlashCardDeck extends HTMLElement {
+  class FlashCardDeck extends HTMLDivElement {
     constructor() {
       super();
 
-      const answerDialog = document.getElementById("answer_dialog");
-      flashCardDeckElem.addEventListener("click", answerDialog.display);
-
-      this.append(flashCardDeckElem);
+      this.addEventListener("click", document.getElementById("answer_dialog").display);
     }
   }
 
-  customElements.define("flash-card-deck", FlashCardDeck);
+  customElements.define("flash-card-deck", FlashCardDeck, {extends: "div"});
 
   class FlashCardLoader extends HTMLElement {
     constructor() {
@@ -62,7 +58,6 @@
     }
 
     // The following method depends on makeFlashCard function,
-    //                                 flashCardDeckElem variable,
     //                             and flipper variable.
     addFlashCards(e) {
       const json = JSON.parse(e.target.result);
@@ -76,7 +71,7 @@
 
         flipper[question] = answer;
       });
-      flashCardDeckElem.append(flashCardFragment);
+      document.getElementById("deck").append(flashCardFragment);
     }
 
     // The following method depends on type variable.
@@ -109,7 +104,6 @@
     }
 
     // The following method depends on makeFlashCard function,
-    //                                 flashCardDeckElem variable,
     //                             and flipper variable.
     addFlashCard() {
       const frontSideElem = document.getElementById("question");
@@ -117,7 +111,7 @@
       const question = frontSideElem.value;
       const answer = backSideElem.value;
       if (question !== "" && answer !== "") {
-        flashCardDeckElem.append(makeFlashCard(question));
+        document.getElementById("deck").append(makeFlashCard(question));
 
         flipper[question] = answer;
 
@@ -125,8 +119,7 @@
         backSideElem.value = "";
       }
 
-      const makerDialog = document.getElementById("maker_dialog");
-      makerDialog.close();
+      document.getElementById("maker_dialog").close();
     }
   }
 
