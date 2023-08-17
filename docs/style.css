@@ -52,3 +52,9 @@ label:not([for]):hover {
   float: right;
   width: 20vw;
 }
+
+.clearfix:after {
+  content: '';
+  display: block;
+  clear: both;
+}
