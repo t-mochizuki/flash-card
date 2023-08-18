@@ -54,7 +54,19 @@
     constructor() {
       super();
 
-      this.append(makeOperator({inputType: "file", eventType: "change", label: "Load flash cards", listener: this.loadFlashCards}))
+      this.append(makeOperator({label: "Load flash cards", listener: () => {
+        const fileInput = document.createElement("input");
+        fileInput.setAttribute("type", "file");
+
+        const loader = document.getElementById("loader");
+        fileInput.addEventListener("change", loader.loadFlashCards);
+
+        document.body.appendChild(fileInput);
+        fileInput.click();
+        setTimeout(function() {
+          document.body.removeChild(fileInput);
+        }, 0);
+      }}));
     }
 
     // The following method depends on makeFlashCard function,

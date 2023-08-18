@@ -8,7 +8,6 @@ dialog {
   top: 10vh;
 }
 
-input[type="file"],
 input[type="button"],
 input[type="submit"] {
   height: 0;
