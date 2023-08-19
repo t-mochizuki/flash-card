@@ -18,6 +18,16 @@
         this.close();
       }
     }
+  }
+
+  customElements.define("answer-dialog", AnswerDialog, {extends: "dialog"});
+
+  class FlashCardDeck extends HTMLDivElement {
+    constructor() {
+      super();
+
+      this.addEventListener("click", this.display);
+    }
 
     display() {
       const answerDialog = document.getElementById("answer_dialog");
@@ -35,16 +45,6 @@
       answerElem.innerText = answerText;
 
       answerDialog.show();
-    }
-  }
-
-  customElements.define("answer-dialog", AnswerDialog, {extends: "dialog"});
-
-  class FlashCardDeck extends HTMLDivElement {
-    constructor() {
-      super();
-
-      this.addEventListener("click", document.getElementById("answer_dialog").display);
     }
   }
 
