@@ -146,11 +146,22 @@
       this.append(this.makeInput({id: "question", label: "Front side content"}));
       this.append(this.makeInput({id: "answer", label: "Back side content"}));
       this.append(makeOperator({label: "Make a flash card", listener: this.addFlashCard}));
+
+      this.addEventListener("click", this.hide);
+    }
+
+    hide() {
+      if (this.open) {
+        this.close();
+      }
     }
 
     makeInput({id, label}) {
       const inputElem = document.createElement("input");
       inputElem.setAttribute("type", "text");
+      inputElem.addEventListener("click", (e) => {
+        e.stopPropagation();
+      });
 
       const labelElem = document.createElement("label");
       labelElem.innerText = label;
@@ -179,8 +190,6 @@
         frontSideElem.value = "";
         backSideElem.value = "";
       }
-
-      document.getElementById("maker_dialog").close();
     }
   }
 
