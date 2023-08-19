@@ -159,7 +159,10 @@
     constructor() {
       super();
 
-      this.append(makeOperator({label: "Export flash cards", listener: this.exportFlashCards}));
+      const button = document.createElement('button');
+      button.innerText = "Export flash cards";
+      button.addEventListener("click", this.exportFlashCards);
+      this.append(button);
     }
 
     // The following method depends on flipper variable and type variable.
