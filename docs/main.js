@@ -54,9 +54,7 @@
     constructor() {
       super();
 
-      const button = document.createElement('button');
-      button.innerText = "Load flash cards";
-      button.addEventListener("click", () => {
+      this.append(makeOperator({label: "Load flash cards", listener: () => {
         const fileInput = document.createElement("input");
         fileInput.setAttribute("type", "file");
 
@@ -68,8 +66,7 @@
         setTimeout(function() {
           document.body.removeChild(fileInput);
         }, 0);
-      });
-      this.append(button);
+      }}));
     }
 
     // The following method depends on makeFlashCard function,
@@ -112,11 +109,7 @@
 
       this.append(this.makeInput({id: "question", label: "Front side content"}));
       this.append(this.makeInput({id: "answer", label: "Back side content"}));
-
-      const button = document.createElement('button');
-      button.innerText = "Make a flash card";
-      button.addEventListener("click", this.addFlashCard);
-      this.append(button);
+      this.append(makeOperator({label: "Make a flash card", listener: this.addFlashCard}));
     }
 
     makeInput({id, label}) {
@@ -162,14 +155,10 @@
 
       const makerDialog = document.getElementById("maker_dialog");
 
-      const button = document.createElement('button');
-      button.innerText = "Make a flash card";
-      button.addEventListener("click", () => {
+      this.append(makeOperator({label: "Make a flash card", listener: () => {
         if (makerDialog.open) return;
         makerDialog.show();
-      });
-
-      this.append(button);
+      }}));
     }
   }
 
@@ -179,10 +168,7 @@
     constructor() {
       super();
 
-      const button = document.createElement('button');
-      button.innerText = "Export flash cards";
-      button.addEventListener("click", this.exportFlashCards);
-      this.append(button);
+      this.append(makeOperator({label: "Export flash cards", listener: this.exportFlashCards}));
     }
 
     // The following method depends on flipper variable and type variable.
@@ -207,25 +193,10 @@
 
   customElements.define("flash-card-exporter", FlashCardExporter);
 
-  function makeOperator({id, label, inputType, eventType, listener}) {
-    const inputElem = document.createElement("input");
-    inputElem.setAttribute("type", inputType || "button");
-    if (listener !== undefined) {
-      inputElem.addEventListener(eventType || "click", listener);
-    }
-
-    const labelElem = document.createElement("label");
-    labelElem.innerText = label;
-    if (id !== undefined) {
-      inputElem.setAttribute("id", id);
-      labelElem.setAttribute("for", id);
-    }
-    labelElem.append(inputElem);
-
-    const operator = document.createElement("span");
-    operator.className = "role";
-
-    operator.append(labelElem);
+  function makeOperator({label, listener}) {
+    const operator = document.createElement("button");
+    operator.innerText = label;
+    operator.addEventListener("click", listener);
 
     return operator;
   }
