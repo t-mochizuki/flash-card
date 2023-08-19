@@ -107,51 +107,33 @@
     constructor() {
       super();
 
-      this.append(makeOperator({label: "Shuffle flash cards", listener: () => {
-        const fileInput = document.createElement("input");
-        fileInput.setAttribute("type", "file");
-
-        const shuffler = document.getElementById("shuffler");
-        fileInput.addEventListener("change", shuffler.loadFlashCards);
-
-        document.body.appendChild(fileInput);
-        fileInput.click();
-        setTimeout(function() {
-          document.body.removeChild(fileInput);
-        }, 0);
-      }}));
+      this.append(makeOperator({label: "Shuffle flash cards", listener: this.shuffleFlashCards}));
     }
 
     // The following method depends on makeFlashCard function,
     //                                 shuffle function,
     //                             and flipper variable.
-    addFlashCards(e) {
-      const json = shuffle(JSON.parse(e.target.result));
+    shuffleFlashCards() {
+      const deck = document.getElementById("deck");
+      while (deck.childNodes.length !== 0) {
+        deck.removeChild(deck.childNodes[deck.childNodes.length - 1]);
+      }
+
+      let json = [];
+      for (const question in flipper) {
+        json.push({question, answer: flipper[question]});
+      }
+
+      json = shuffle(json);
 
       const flashCardFragment = new DocumentFragment();
       json.forEach(({question, answer}) => {
         if (question === undefined) return;
         if (answer === undefined) return;
 
-        if (!flipper.hasOwnProperty(question)) {
-          flashCardFragment.append(makeFlashCard(question));
-          flipper[question] = answer;
-        }
+        flashCardFragment.append(makeFlashCard(question));
       });
       document.getElementById("deck").append(flashCardFragment);
-    }
-
-    // The following method depends on type variable.
-    loadFlashCards() {
-      const f = this.files[0];
-
-      if (f.type !== type) return;
-
-      const reader = new FileReader();
-
-      reader.addEventListener("load", document.getElementById("shuffler").addFlashCards);
-
-      reader.readAsText(f);
     }
   }
 
