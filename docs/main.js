@@ -120,6 +120,7 @@
       labelElem.innerText = label;
       inputElem.setAttribute("id", id);
       labelElem.setAttribute("for", id);
+      labelElem.className = "role";
 
       labelElem.append(inputElem);
       return labelElem;
