@@ -110,13 +110,26 @@
     constructor() {
       super();
 
-      this.append(makeOperator({id: "question", inputType: "text", label: "Front side content"}));
-      this.append(makeOperator({id: "answer", inputType: "text", label: "Back side content"}));
+      this.append(this.makeInput({id: "question", label: "Front side content"}));
+      this.append(this.makeInput({id: "answer", label: "Back side content"}));
 
       const button = document.createElement('button');
       button.innerText = "Make a flash card";
       button.addEventListener("click", this.addFlashCard);
       this.append(button);
+    }
+
+    makeInput({id, label}) {
+      const inputElem = document.createElement("input");
+      inputElem.setAttribute("type", "text");
+
+      const labelElem = document.createElement("label");
+      labelElem.innerText = label;
+      inputElem.setAttribute("id", id);
+      labelElem.setAttribute("for", id);
+
+      labelElem.append(inputElem);
+      return labelElem;
     }
 
     // The following method depends on makeFlashCard function,
