@@ -54,7 +54,9 @@
     constructor() {
       super();
 
-      this.append(makeOperator({label: "Load flash cards", listener: () => {
+      const button = document.createElement('button');
+      button.innerText = "Load flash cards";
+      button.addEventListener("click", () => {
         const fileInput = document.createElement("input");
         fileInput.setAttribute("type", "file");
 
@@ -66,7 +68,8 @@
         setTimeout(function() {
           document.body.removeChild(fileInput);
         }, 0);
-      }}));
+      });
+      this.append(button);
     }
 
     // The following method depends on makeFlashCard function,
