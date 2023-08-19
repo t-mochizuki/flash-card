@@ -109,7 +109,11 @@
 
       this.append(makeOperator({id: "question", inputType: "text", label: "Front side content"}));
       this.append(makeOperator({id: "answer", inputType: "text", label: "Back side content"}));
-      this.append(makeOperator({label: "Make a flash card", inputType: "submit", listener: this.addFlashCard}));
+
+      const button = document.createElement('button');
+      button.innerText = "Make a flash card";
+      button.addEventListener("click", this.addFlashCard);
+      this.append(button);
     }
 
     // The following method depends on makeFlashCard function,
