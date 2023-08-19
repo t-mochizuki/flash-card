@@ -124,7 +124,7 @@
         json.push({question, answer: flipper[question]});
       }
 
-      json = shuffle(json);
+      shuffle(json);
 
       const flashCardFragment = new DocumentFragment();
       json.forEach(({question, answer}) => {
@@ -261,7 +261,5 @@
 
       [arr[currentIndex], arr[randomIndex]] = [arr[randomIndex], arr[currentIndex]];
     }
-
-    return arr;
   }
 })();
