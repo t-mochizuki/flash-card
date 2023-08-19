@@ -141,15 +141,15 @@
       super();
 
       const makerDialog = document.getElementById("maker_dialog");
-      this.append(
-        makeOperator({
-          label: "Make a flash card",
-          listener: () => {
-            if (makerDialog.open) return;
-            makerDialog.show();
-          }
-        })
-      );
+
+      const button = document.createElement('button');
+      button.innerText = "Make a flash card";
+      button.addEventListener("click", () => {
+        if (makerDialog.open) return;
+        makerDialog.show();
+      });
+
+      this.append(button);
     }
   }
 
