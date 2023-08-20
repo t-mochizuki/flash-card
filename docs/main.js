@@ -197,20 +197,23 @@
 
   customElements.define("maker-dialog", MakerDialog, {extends: "dialog"});
 
-  class FlashCardMaker extends HTMLElement {
+  class FlashCardMaker extends HTMLButtonElement {
+    #makerDialog = document.getElementById("maker_dialog");
+
     constructor() {
       super();
 
-      const makerDialog = document.getElementById("maker_dialog");
+      this.innerText = "Make a flash card";
+      this.addEventListener("click", this.display);
+    }
 
-      this.append(makeOperator({label: "Make a flash card", listener: () => {
-        if (makerDialog.open) return;
-        makerDialog.show();
-      }}));
+    display() {
+      if (this.#makerDialog.open) return;
+      this.#makerDialog.show();
     }
   }
 
-  customElements.define("flash-card-maker", FlashCardMaker);
+  customElements.define("flash-card-maker", FlashCardMaker, {extends: "button"});
 
   class FlashCardExporter extends HTMLElement {
     constructor() {
