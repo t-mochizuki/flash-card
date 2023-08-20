@@ -103,20 +103,22 @@
 
   customElements.define("flash-card-loader", FlashCardLoader);
 
-  class FlashCardShuffler extends HTMLElement {
+  class FlashCardShuffler extends HTMLButtonElement {
+    #deck = document.getElementById("deck");
+
     constructor() {
       super();
 
-      this.append(makeOperator({label: "Shuffle flash cards", listener: this.shuffleFlashCards}));
+      this.innerText = "Shuffle flash cards";
+      this.addEventListener("click", this.shuffleFlashCards);
     }
 
     // The following method depends on makeFlashCard function,
     //                                 shuffle function,
     //                             and flipper variable.
     shuffleFlashCards() {
-      const deck = document.getElementById("deck");
-      while (deck.childNodes.length !== 0) {
-        deck.removeChild(deck.childNodes[deck.childNodes.length - 1]);
+      while (this.#deck.childNodes.length !== 0) {
+        this.#deck.removeChild(this.#deck.childNodes[this.#deck.childNodes.length - 1]);
       }
 
       let json = [];
@@ -133,11 +135,11 @@
 
         flashCardFragment.append(makeFlashCard(question));
       });
-      document.getElementById("deck").append(flashCardFragment);
+      this.#deck.append(flashCardFragment);
     }
   }
 
-  customElements.define("flash-card-shuffler", FlashCardShuffler);
+  customElements.define("flash-card-shuffler", FlashCardShuffler, {extends: "button"});
 
   class MakerDialog extends HTMLDialogElement {
     constructor() {
