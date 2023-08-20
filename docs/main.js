@@ -60,6 +60,15 @@
       });
       this.append(flashCardFragment);
     }
+
+    // The following method depends on makeFlashCard function,
+    //                             and flipper variable.
+    addFlashCard(question, answer) {
+      if (flipper.hasOwnProperty(question)) return;
+
+      this.append(makeFlashCard(question));
+      flipper[question] = answer;
+    }
   }
 
   customElements.define("flash-card-deck", FlashCardDeck, {extends: "div"});
@@ -163,19 +172,13 @@
       return labelElem;
     }
 
-    // The following method depends on makeFlashCard function,
-    //                             and flipper variable.
     addFlashCard() {
       const frontSideElem = document.getElementById("question");
       const backSideElem = document.getElementById("answer");
       const question = frontSideElem.value;
       const answer = backSideElem.value;
       if (question !== "" && answer !== "") {
-
-        if (!flipper.hasOwnProperty(question)) {
-          document.getElementById("deck").append(makeFlashCard(question));
-          flipper[question] = answer;
-        }
+        document.getElementById("deck").addFlashCard(question, answer);
 
         frontSideElem.value = "";
         backSideElem.value = "";
