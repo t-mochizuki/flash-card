@@ -50,23 +50,23 @@
 
   customElements.define("flash-card-deck", FlashCardDeck, {extends: "div"});
 
-  class FlashCardLoader extends HTMLElement {
+  class FlashCardLoader extends HTMLButtonElement {
     constructor() {
       super();
 
-      this.append(makeOperator({label: "Load flash cards", listener: () => {
+      this.innerText = "Load flash cards";
+      this.addEventListener("click", () => {
         const fileInput = document.createElement("input");
         fileInput.setAttribute("type", "file");
 
-        const loader = document.getElementById("loader");
-        fileInput.addEventListener("change", loader.loadFlashCards);
+        fileInput.addEventListener("change", this.loadFlashCards);
 
         document.body.appendChild(fileInput);
         fileInput.click();
         setTimeout(function() {
           document.body.removeChild(fileInput);
         }, 0);
-      }}));
+      });
     }
 
     // The following method depends on makeFlashCard function,
@@ -101,7 +101,7 @@
     }
   }
 
-  customElements.define("flash-card-loader", FlashCardLoader);
+  customElements.define("flash-card-loader", FlashCardLoader, {extends: "button"});
 
   class FlashCardShuffler extends HTMLButtonElement {
     #deck = document.getElementById("deck");
