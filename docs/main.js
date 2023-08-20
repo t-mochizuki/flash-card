@@ -23,6 +23,8 @@
   customElements.define("answer-dialog", AnswerDialog, {extends: "dialog"});
 
   class FlashCardDeck extends HTMLDivElement {
+    #answerDialog = document.getElementById("answer_dialog");
+
     constructor() {
       super();
 
@@ -30,9 +32,7 @@
     }
 
     display() {
-      const answerDialog = document.getElementById("answer_dialog");
-
-      if (answerDialog.open) return;
+      if (this.#answerDialog.open) return;
 
       const questionElem = this.querySelector("span:hover > span.card");
 
@@ -44,7 +44,7 @@
 
       answerElem.innerText = answerText;
 
-      answerDialog.show();
+      this.#answerDialog.show();
     }
   }
 
