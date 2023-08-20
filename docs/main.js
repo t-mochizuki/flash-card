@@ -215,11 +215,12 @@
 
   customElements.define("flash-card-maker", FlashCardMaker, {extends: "button"});
 
-  class FlashCardExporter extends HTMLElement {
+  class FlashCardExporter extends HTMLButtonElement {
     constructor() {
       super();
 
-      this.append(makeOperator({label: "Export flash cards", listener: this.exportFlashCards}));
+      this.innerText = "Export flash cards";
+      this.addEventListener("click", this.exportFlashCards);
     }
 
     // The following method depends on flipper variable and type variable.
@@ -242,7 +243,7 @@
     }
   }
 
-  customElements.define("flash-card-exporter", FlashCardExporter);
+  customElements.define("flash-card-exporter", FlashCardExporter, {extends: "button"});
 
   function makeOperator({label, listener}) {
     const operator = document.createElement("button");
