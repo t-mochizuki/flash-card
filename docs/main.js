@@ -114,29 +114,16 @@
       this.addEventListener("click", this.shuffleFlashCards);
     }
 
-    // The following method depends on makeFlashCard function,
-    //                                 shuffle function,
+    // The following method depends on shuffle function,
     //                             and flipper variable.
     shuffleFlashCards() {
-      while (this.#deck.childNodes.length !== 0) {
-        this.#deck.removeChild(this.#deck.childNodes[this.#deck.childNodes.length - 1]);
+      const arr = Object.keys(flipper);
+
+      shuffle(arr);
+
+      for (let i = 0; i < arr.length; ++i) {
+        this.#deck.childNodes[i].childNodes[0].innerText = arr[i];
       }
-
-      let json = [];
-      for (const question in flipper) {
-        json.push({question, answer: flipper[question]});
-      }
-
-      shuffle(json);
-
-      const flashCardFragment = new DocumentFragment();
-      json.forEach(({question, answer}) => {
-        if (question === undefined) return;
-        if (answer === undefined) return;
-
-        flashCardFragment.append(makeFlashCard(question));
-      });
-      this.#deck.append(flashCardFragment);
     }
   }
 
