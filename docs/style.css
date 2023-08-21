@@ -43,3 +43,7 @@ input[type="file"] {
   display: block;
   clear: both;
 }
+
+.hidden {
+  display: none;
+}

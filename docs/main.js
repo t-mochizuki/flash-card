@@ -2,28 +2,11 @@
   let flipper = new Object();
   const type = "application/json";
   const answerElem = document.createElement("p");
+  const divElem = document.createElement("div");
   answerElem.style.textAlign = "center";
 
-  class AnswerDialog extends HTMLDialogElement {
-    constructor() {
-      super();
-
-      this.append(answerElem);
-
-      this.addEventListener("click", this.hide);
-    }
-
-    hide() {
-      if (this.open) {
-        this.close();
-      }
-    }
-  }
-
-  customElements.define("answer-dialog", AnswerDialog, {extends: "dialog"});
-
   class FlashCardDeck extends HTMLDivElement {
-    #answerDialog = document.getElementById("answer_dialog");
+    #makerDialog = document.getElementById("maker_dialog");
 
     constructor() {
       super();
@@ -32,7 +15,9 @@
     }
 
     display() {
-      if (this.#answerDialog.open) return;
+      if (this.#makerDialog.open) return;
+
+      divElem.className = "hidden";
 
       const questionElem = this.querySelector("span:hover > span.card");
 
@@ -44,7 +29,7 @@
 
       answerElem.innerText = answerText;
 
-      this.#answerDialog.show();
+      this.#makerDialog.show();
     }
 
     addFlashCards(arr) {
@@ -142,15 +127,19 @@
     constructor() {
       super();
 
-      this.append(this.makeInput({id: "question", label: "Front side content"}));
-      this.append(this.makeInput({id: "answer", label: "Back side content"}));
-      this.append(makeOperator({label: "Make a flash card", listener: this.addFlashCard}));
+      this.append(answerElem);
+      divElem.append(this.makeInput({id: "question", label: "Front side content"}));
+      divElem.append(this.makeInput({id: "answer", label: "Back side content"}));
+      divElem.append(makeOperator({label: "Make a flash card", listener: this.addFlashCard}));
+      this.append(divElem);
 
       this.addEventListener("click", this.hide);
     }
 
     hide() {
       if (this.open) {
+        answerElem.innerText = "";
+        divElem.className = "";
         this.close();
       }
     }
