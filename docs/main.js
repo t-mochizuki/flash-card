@@ -130,7 +130,7 @@
       this.append(answerElem);
       divElem.append(this.makeInput({id: "question", label: "Front side content"}));
       divElem.append(this.makeInput({id: "answer", label: "Back side content"}));
-      divElem.append(makeOperator({label: "Make a flash card", listener: this.addFlashCard}));
+      divElem.append(this.makeOperator({label: "Make a flash card", listener: this.addFlashCard}));
       this.append(divElem);
 
       this.addEventListener("click", this.hide);
@@ -159,6 +159,14 @@
 
       labelElem.append(inputElem);
       return labelElem;
+    }
+
+    makeOperator({label, listener}) {
+      const operator = document.createElement("button");
+      operator.innerText = label;
+      operator.addEventListener("click", listener);
+
+      return operator;
     }
 
     addFlashCard() {
@@ -224,14 +232,6 @@
   }
 
   customElements.define("flash-card-exporter", FlashCardExporter, {extends: "button"});
-
-  function makeOperator({label, listener}) {
-    const operator = document.createElement("button");
-    operator.innerText = label;
-    operator.addEventListener("click", listener);
-
-    return operator;
-  }
 
   function makeFlashCard(question) {
     const cardElem = document.createElement("span");
