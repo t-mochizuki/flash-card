@@ -68,6 +68,7 @@
         fileInput.setAttribute("type", "file");
 
         fileInput.addEventListener("change", this.loadFlashCards);
+        fileInput.loader = this;
 
         document.body.appendChild(fileInput);
         fileInput.click();
@@ -83,14 +84,14 @@
     }
 
     // The following method depends on type variable.
-    loadFlashCards() {
+    loadFlashCards(e) {
       const f = this.files[0];
 
       if (f.type !== type) return;
 
       const reader = new FileReader();
 
-      reader.addEventListener("load", document.getElementById("loader").addFlashCards);
+      reader.addEventListener("load", e.currentTarget.loader.addFlashCards);
 
       reader.readAsText(f);
     }
