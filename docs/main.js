@@ -117,7 +117,7 @@
       this.shuffle(arr);
 
       for (let i = 0; i < arr.length; ++i) {
-        this.#deck.childNodes[i].childNodes[0].innerText = arr[i];
+        this.#deck.childNodes[i].innerText = arr[i];
       }
     }
 
