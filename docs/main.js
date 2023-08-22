@@ -18,6 +18,7 @@
       if (this.#makerDialog.open) return;
 
       divElem.className = "hidden";
+      this.#makerDialog.slayer.className = "";
 
       const questionElem = this.querySelector("span.card:hover");
 
@@ -138,6 +139,8 @@
   customElements.define("flash-card-shuffler", FlashCardShuffler, {extends: "button"});
 
   class MakerDialog extends HTMLDialogElement {
+    slayer = this.makeOperator({label: "Delete flash card", listener: this.deleteFlashCard});
+
     constructor() {
       super();
 
@@ -147,6 +150,9 @@
       divElem.append(this.makeOperator({label: "Make a flash card", listener: this.addFlashCard}));
       this.append(divElem);
 
+      this.append(this.slayer);
+      this.slayer.className = "hidden";
+
       this.addEventListener("click", this.hide);
     }
 
@@ -154,6 +160,7 @@
       if (this.open) {
         answerElem.innerText = "";
         divElem.className = "";
+        this.slayer.className = "hidden";
         this.close();
       }
     }
@@ -194,6 +201,15 @@
         frontSideElem.value = "";
         backSideElem.value = "";
       }
+    }
+
+    deleteFlashCard() {
+      document.getElementById("deck").childNodes.forEach((flashCard) => {
+        if (answerElem.innerText === flipper[flashCard.innerText]) {
+          delete flipper[flashCard.innerText];
+          flashCard.remove();
+        }
+      });
     }
   }
 
