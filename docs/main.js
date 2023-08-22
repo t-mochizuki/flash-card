@@ -113,10 +113,23 @@
     shuffleFlashCards() {
       const arr = Object.keys(flipper);
 
-      shuffle(arr);
+      this.shuffle(arr);
 
       for (let i = 0; i < arr.length; ++i) {
         this.#deck.childNodes[i].childNodes[0].innerText = arr[i];
+      }
+    }
+
+    // cf. https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm
+    shuffle(arr) {
+      let currentIndex = arr.length;
+
+      while (currentIndex !== 0) {
+        const randomIndex = Math.floor(Math.random() * currentIndex);
+
+        currentIndex--;
+
+        [arr[currentIndex], arr[randomIndex]] = [arr[randomIndex], arr[currentIndex]];
       }
     }
   }
@@ -243,18 +256,5 @@
     flashCardFlipperElem.append(cardElem);
 
     return flashCardFlipperElem;
-  }
-
-  // cf. https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm
-  function shuffle(arr) {
-    let currentIndex = arr.length;
-
-    while (currentIndex !== 0) {
-      const randomIndex = Math.floor(Math.random() * currentIndex);
-
-      currentIndex--;
-
-      [arr[currentIndex], arr[randomIndex]] = [arr[randomIndex], arr[currentIndex]];
-    }
   }
 })();
