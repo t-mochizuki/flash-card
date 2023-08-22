@@ -19,7 +19,7 @@
 
       divElem.className = "hidden";
 
-      const questionElem = this.querySelector("span:hover > span.card");
+      const questionElem = this.querySelector("span.card:hover");
 
       if (questionElem === null) return;
 
@@ -248,14 +248,10 @@
   customElements.define("flash-card-exporter", FlashCardExporter, {extends: "button"});
 
   function makeFlashCard(question) {
-    const cardElem = document.createElement("span");
-    cardElem.innerText = question;
-    cardElem.className = "card";
-    cardElem.style.textAlign = "center";
+    const flashCard = document.createElement("span");
+    flashCard.innerText = question;
+    flashCard.className = "card";
 
-    const flashCardFlipperElem = document.createElement("span");
-    flashCardFlipperElem.append(cardElem);
-
-    return flashCardFlipperElem;
+    return flashCard;
   }
 })();
