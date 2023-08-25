@@ -1,5 +1,6 @@
-let flipper = new Object();
-const type = "application/json";
+import { flipper } from './environments.js';
+import { type } from './constants.js';
+
 const answerElem = document.createElement("p");
 const divElem = document.createElement("div");
 answerElem.style.textAlign = "center";
