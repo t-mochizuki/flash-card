@@ -1,8 +1,6 @@
 import { flipper } from './environments.js';
 import { type } from './constants.js';
 
-const divElem = document.createElement("div");
-
 class FlashCardDeck extends HTMLDivElement {
   #makerDialog = document.getElementById("maker_dialog");
 
@@ -15,7 +13,7 @@ class FlashCardDeck extends HTMLDivElement {
   display() {
     if (this.#makerDialog.open) return;
 
-    divElem.className = "hidden";
+    this.#makerDialog.form.className = "hidden";
     this.#makerDialog.slayer.className = "";
 
     const questionElem = this.querySelector("span.card:hover");
@@ -97,6 +95,8 @@ class FlashCardLoader extends HTMLButtonElement {
 class MakerDialog extends HTMLDialogElement {
   slayer = this.makeOperator({label: "Delete flash card", listener: this.deleteFlashCard.bind(this)});
   answerElem = document.createElement("p");
+  form = document.createElement("div");
+
 
   constructor() {
     super();
@@ -104,10 +104,10 @@ class MakerDialog extends HTMLDialogElement {
     this.append(this.answerElem);
     this.answerElem.style.textAlign = "center";
 
-    divElem.append(this.makeInput({id: "question", label: "Front side content"}));
-    divElem.append(this.makeInput({id: "answer", label: "Back side content"}));
-    divElem.append(this.makeOperator({label: "Make a flash card", listener: this.addFlashCard}));
-    this.append(divElem);
+    this.form.append(this.makeInput({id: "question", label: "Front side content"}));
+    this.form.append(this.makeInput({id: "answer", label: "Back side content"}));
+    this.form.append(this.makeOperator({label: "Make a flash card", listener: this.addFlashCard}));
+    this.append(this.form);
 
     this.append(this.slayer);
     this.slayer.className = "hidden";
@@ -118,7 +118,7 @@ class MakerDialog extends HTMLDialogElement {
   hide() {
     if (this.open) {
       this.answerElem.innerText = "";
-      divElem.className = "";
+      this.form.className = "";
       this.slayer.className = "hidden";
       this.close();
     }
