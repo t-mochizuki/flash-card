@@ -1,9 +1,7 @@
 import { flipper } from './environments.js';
 import { type } from './constants.js';
 
-const answerElem = document.createElement("p");
 const divElem = document.createElement("div");
-answerElem.style.textAlign = "center";
 
 class FlashCardDeck extends HTMLDivElement {
   #makerDialog = document.getElementById("maker_dialog");
@@ -28,7 +26,7 @@ class FlashCardDeck extends HTMLDivElement {
 
     if (answerText === undefined) return;
 
-    answerElem.innerText = answerText;
+    this.#makerDialog.answerElem.innerText = answerText;
 
     this.#makerDialog.show();
   }
@@ -97,12 +95,15 @@ class FlashCardLoader extends HTMLButtonElement {
 }
 
 class MakerDialog extends HTMLDialogElement {
-  slayer = this.makeOperator({label: "Delete flash card", listener: this.deleteFlashCard});
+  slayer = this.makeOperator({label: "Delete flash card", listener: this.deleteFlashCard.bind(this)});
+  answerElem = document.createElement("p");
 
   constructor() {
     super();
 
-    this.append(answerElem);
+    this.append(this.answerElem);
+    this.answerElem.style.textAlign = "center";
+
     divElem.append(this.makeInput({id: "question", label: "Front side content"}));
     divElem.append(this.makeInput({id: "answer", label: "Back side content"}));
     divElem.append(this.makeOperator({label: "Make a flash card", listener: this.addFlashCard}));
@@ -116,7 +117,7 @@ class MakerDialog extends HTMLDialogElement {
 
   hide() {
     if (this.open) {
-      answerElem.innerText = "";
+      this.answerElem.innerText = "";
       divElem.className = "";
       this.slayer.className = "hidden";
       this.close();
@@ -163,7 +164,7 @@ class MakerDialog extends HTMLDialogElement {
 
   deleteFlashCard() {
     document.getElementById("deck").childNodes.forEach((flashCard) => {
-      if (answerElem.innerText === flipper[flashCard.innerText]) {
+      if (this.answerElem.innerText === flipper[flashCard.innerText]) {
         delete flipper[flashCard.innerText];
         flashCard.remove();
       }
