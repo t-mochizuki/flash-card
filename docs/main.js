@@ -1,11 +1,11 @@
 import {
   FlashCardDeck,
   FlashCardLoader,
-  FlashCardMaker,
   MakerDialog
 } from './modules/flashCard.js';
 import { FlashCardExporter } from './modules/exporter.js';
 import { FlashCardShuffler } from './modules/shuffler.js';
+import { FlashCardMaker } from './modules/maker.js';
 
 customElements.define("flash-card-deck", FlashCardDeck, {extends: "div"});
 customElements.define("flash-card-loader", FlashCardLoader, {extends: "button"});
