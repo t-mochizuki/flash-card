@@ -1,7 +1,5 @@
-import {
-  FlashCardDeck,
-  MakerDialog
-} from './modules/flashCard.js';
+import { MakerDialog } from './modules/makerDialog.js';
+import { FlashCardDeck } from './modules/deck.js';
 import { FlashCardLoader } from './modules/loader.js';
 import { FlashCardExporter } from './modules/exporter.js';
 import { FlashCardShuffler } from './modules/shuffler.js';
