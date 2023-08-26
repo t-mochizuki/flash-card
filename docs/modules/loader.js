@@ -9,7 +9,7 @@ class FlashCardLoader extends HTMLButtonElement {
       const fileInput = document.createElement("input");
       fileInput.setAttribute("type", "file");
 
-      fileInput.addEventListener("change", this.loadFlashCards);
+      fileInput.addEventListener("change", loadFlashCards);
 
       document.body.appendChild(fileInput);
       fileInput.click();
@@ -27,7 +27,7 @@ function loadFlashCards(e) {
 
   const reader = new FileReader();
 
-  reader.addEventListener("load", this.addFlashCards);
+  reader.addEventListener("load", addFlashCards);
 
   reader.readAsText(f);
 }
