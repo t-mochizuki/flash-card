@@ -20,11 +20,6 @@ class FlashCardLoader extends HTMLButtonElement {
     });
   }
 
-  addFlashCards(e) {
-    const arr = JSON.parse(e.target.result);
-    document.getElementById("deck").addFlashCards(arr);
-  }
-
   loadFlashCards(e) {
     const f = this.files[0];
 
@@ -35,6 +30,11 @@ class FlashCardLoader extends HTMLButtonElement {
     reader.addEventListener("load", e.currentTarget.loader.addFlashCards);
 
     reader.readAsText(f);
+  }
+
+  addFlashCards(e) {
+    const arr = JSON.parse(e.target.result);
+    document.getElementById("deck").addFlashCards(arr);
   }
 }
 

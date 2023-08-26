@@ -5,7 +5,6 @@ class MakerDialog extends HTMLDialogElement {
   answerElem = document.createElement("p");
   form = document.createElement("div");
 
-
   constructor() {
     super();
 

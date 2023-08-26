@@ -42,8 +42,6 @@ class FlashCardDeck extends HTMLDivElement {
     this.append(flashCardFragment);
   }
 
-  // The following method depends on makeFlashCard function,
-  //                             and flipper variable.
   addFlashCard(question, answer) {
     if (flipper.hasOwnProperty(question)) return;
 

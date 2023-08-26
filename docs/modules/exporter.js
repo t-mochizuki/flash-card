@@ -9,7 +9,6 @@ class FlashCardExporter extends HTMLButtonElement {
     this.addEventListener("click", this.exportFlashCards);
   }
 
-  // The following method depends on flipper variable and type variable.
   exportFlashCards() {
     let aElem = document.createElement("a");
     const json = [];
