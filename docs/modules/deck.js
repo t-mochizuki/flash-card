@@ -1,29 +1,18 @@
 import { flipper } from './environments.js';
+import { FlashCard } from './card.js';
 
 class FlashCardDeck extends HTMLDivElement {
-  #viewerDialog = document.getElementById("viewer_dialog");
-
   constructor() {
     super();
-
     this.addEventListener("click", this.display);
   }
 
-  // display the dialog for viewing the flash card.
   display() {
-    if (this.#viewerDialog.open) return;
-
-    const questionElem = this.querySelector(".card:hover");
-
-    if (questionElem === null) return;
-
-    const answerText = flipper[questionElem.innerText];
-
-    if (answerText === undefined) return;
-
-    this.#viewerDialog.answerElem.innerText = answerText;
-
-    this.#viewerDialog.show();
+    const flashCard = this.querySelector(".card:hover");
+    if (flashCard !== null) {
+      flashCard.display();
+      return;
+    }
   }
 
   addFlashCards(arr) {
@@ -49,8 +38,7 @@ class FlashCardDeck extends HTMLDivElement {
 }
 
 function makeFlashCard(question) {
-  const flashCard = document.createElement("span");
-  flashCard.setAttribute("is", "flash-card");
+  const flashCard = new FlashCard();
   flashCard.innerText = question;
   flashCard.className = "card";
 
