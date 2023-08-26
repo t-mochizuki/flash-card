@@ -11,8 +11,8 @@ class MakerDialog extends HTMLDialogElement {
     this.append(this.answerElem);
     this.answerElem.style.textAlign = "center";
 
-    this.form.append(this.makeInput({id: "question", label: "Front side content"}));
-    this.form.append(this.makeInput({id: "answer", label: "Back side content"}));
+    this.form.append(makeInput({id: "question", label: "Front side content"}));
+    this.form.append(makeInput({id: "answer", label: "Back side content"}));
     this.form.append(this.makeOperator({label: "Make a flash card", listener: this.addFlashCard}));
     this.append(this.form);
 
@@ -29,23 +29,6 @@ class MakerDialog extends HTMLDialogElement {
       this.slayer.className = "hidden";
       this.close();
     }
-  }
-
-  makeInput({id, label}) {
-    const inputElem = document.createElement("input");
-    inputElem.setAttribute("type", "text");
-    inputElem.addEventListener("click", (e) => {
-      e.stopPropagation();
-    });
-
-    const labelElem = document.createElement("label");
-    labelElem.innerText = label;
-    inputElem.setAttribute("id", id);
-    labelElem.setAttribute("for", id);
-    labelElem.className = "role";
-
-    labelElem.append(inputElem);
-    return labelElem;
   }
 
   makeOperator({label, listener}) {
@@ -77,6 +60,23 @@ class MakerDialog extends HTMLDialogElement {
       }
     });
   }
+}
+
+function makeInput({id, label}) {
+  const inputElem = document.createElement("input");
+  inputElem.setAttribute("type", "text");
+  inputElem.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  const labelElem = document.createElement("label");
+  labelElem.innerText = label;
+  inputElem.setAttribute("id", id);
+  labelElem.setAttribute("for", id);
+  labelElem.className = "role";
+
+  labelElem.append(inputElem);
+  return labelElem;
 }
 
 export { MakerDialog };

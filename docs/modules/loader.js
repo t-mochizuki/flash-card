@@ -10,7 +10,6 @@ class FlashCardLoader extends HTMLButtonElement {
       fileInput.setAttribute("type", "file");
 
       fileInput.addEventListener("change", this.loadFlashCards);
-      fileInput.loader = this;
 
       document.body.appendChild(fileInput);
       fileInput.click();
@@ -19,23 +18,23 @@ class FlashCardLoader extends HTMLButtonElement {
       }, 0);
     });
   }
+}
 
-  loadFlashCards(e) {
-    const f = this.files[0];
+function loadFlashCards(e) {
+  const f = this.files[0];
 
-    if (f.type !== type) return;
+  if (f.type !== type) return;
 
-    const reader = new FileReader();
+  const reader = new FileReader();
 
-    reader.addEventListener("load", e.currentTarget.loader.addFlashCards);
+  reader.addEventListener("load", this.addFlashCards);
 
-    reader.readAsText(f);
-  }
+  reader.readAsText(f);
+}
 
-  addFlashCards(e) {
-    const arr = JSON.parse(e.target.result);
-    document.getElementById("deck").addFlashCards(arr);
-  }
+function addFlashCards(e) {
+  const arr = JSON.parse(e.target.result);
+  document.getElementById("deck").addFlashCards(arr);
 }
 
 export { FlashCardLoader };

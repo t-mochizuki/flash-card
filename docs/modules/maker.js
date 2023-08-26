@@ -8,6 +8,7 @@ class FlashCardMaker extends HTMLButtonElement {
     this.addEventListener("click", this.display);
   }
 
+  // display the dialog for creating a flash card.
   display() {
     if (this.#makerDialog.open) return;
     this.#makerDialog.show();

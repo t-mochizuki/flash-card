@@ -9,13 +9,14 @@ class FlashCardDeck extends HTMLDivElement {
     this.addEventListener("click", this.display);
   }
 
+  // display the dialog for viewing the flash card.
   display() {
     if (this.#makerDialog.open) return;
 
     this.#makerDialog.form.className = "hidden";
     this.#makerDialog.slayer.className = "";
 
-    const questionElem = this.querySelector("span.card:hover");
+    const questionElem = this.querySelector(".card:hover");
 
     if (questionElem === null) return;
 
