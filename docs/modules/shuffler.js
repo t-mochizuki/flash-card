@@ -1,36 +1,35 @@
 import { flipper } from './environments.js';
 
 class FlashCardShuffler extends HTMLButtonElement {
-  #deck = document.getElementById("deck");
-
   constructor() {
     super();
 
     this.innerText = "Shuffle flash cards";
-    this.addEventListener("click", this.shuffleFlashCards);
+    this.addEventListener("click", shuffleFlashCards);
   }
+}
 
-  shuffleFlashCards() {
-    const arr = Object.keys(flipper);
+function shuffleFlashCards() {
+  const frontSideContents = Object.keys(flipper);
 
-    this.shuffle(arr);
+  shuffle(frontSideContents);
 
-    for (let i = 0; i < arr.length; ++i) {
-      this.#deck.childNodes[i].innerText = arr[i];
-    }
+  deck = document.getElementById("deck");
+  for (let i = 0; i < frontSideContents.length; ++i) {
+    deck.childNodes[i].innerText = frontSideContents[i];
   }
+}
 
-  // cf. https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm
-  shuffle(arr) {
-    let currentIndex = arr.length;
+// cf. https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm
+function shuffle(arr) {
+  let currentIndex = arr.length;
 
-    while (currentIndex !== 0) {
-      const randomIndex = Math.floor(Math.random() * currentIndex);
+  while (currentIndex !== 0) {
+    const randomIndex = Math.floor(Math.random() * currentIndex);
 
-      currentIndex--;
+    currentIndex--;
 
-      [arr[currentIndex], arr[randomIndex]] = [arr[randomIndex], arr[currentIndex]];
-    }
+    [arr[currentIndex], arr[randomIndex]] = [arr[randomIndex], arr[currentIndex]];
   }
 }
 
