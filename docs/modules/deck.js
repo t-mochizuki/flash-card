@@ -1,7 +1,7 @@
 import { flipper } from './environments.js';
 
 class FlashCardDeck extends HTMLDivElement {
-  #makerDialog = document.getElementById("maker_dialog");
+  #viewerDialog = document.getElementById("viewer_dialog");
 
   constructor() {
     super();
@@ -11,10 +11,7 @@ class FlashCardDeck extends HTMLDivElement {
 
   // display the dialog for viewing the flash card.
   display() {
-    if (this.#makerDialog.open) return;
-
-    this.#makerDialog.form.className = "hidden";
-    this.#makerDialog.slayer.className = "";
+    if (this.#viewerDialog.open) return;
 
     const questionElem = this.querySelector(".card:hover");
 
@@ -24,9 +21,9 @@ class FlashCardDeck extends HTMLDivElement {
 
     if (answerText === undefined) return;
 
-    this.#makerDialog.answerElem.innerText = answerText;
+    this.#viewerDialog.answerElem.innerText = answerText;
 
-    this.#makerDialog.show();
+    this.#viewerDialog.show();
   }
 
   addFlashCards(arr) {
