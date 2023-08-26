@@ -50,6 +50,7 @@ class FlashCardDeck extends HTMLDivElement {
 
 function makeFlashCard(question) {
   const flashCard = document.createElement("span");
+  flashCard.setAttribute("is", "flash-card");
   flashCard.innerText = question;
   flashCard.className = "card";
 
