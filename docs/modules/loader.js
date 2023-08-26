@@ -21,7 +21,7 @@ class FlashCardLoader extends HTMLButtonElement {
 }
 
 function loadFlashCards(e) {
-  const f = this.files[0];
+  const f = e.target.files[0];
 
   if (f.type !== type) return;
 
