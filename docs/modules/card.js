@@ -1,7 +1,7 @@
 import { flipper } from './environments.js';
 
 class FlashCard extends HTMLDivElement {
-  #viewerDialog = document.getElementById("viewer_dialog");
+  viewerDialog = document.getElementById("viewer_dialog");
 
   constructor() {
     super();
@@ -9,15 +9,15 @@ class FlashCard extends HTMLDivElement {
 
   // display the dialog for viewing the flash card.
   display() {
-    if (this.#viewerDialog.open) return;
+    if (this.viewerDialog.open) return;
 
     const answerText = flipper[this.innerText];
 
     if (answerText === undefined) return;
 
-    this.#viewerDialog.answerElem.innerText = answerText;
+    this.viewerDialog.answerElem.innerText = answerText;
 
-    this.#viewerDialog.show();
+    this.viewerDialog.show();
   }
 }
 

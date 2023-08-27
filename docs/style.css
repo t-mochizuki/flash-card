@@ -25,16 +25,24 @@ input[type="file"] {
 .card {
   margin: 10px;
   background: #eee;
+  float: left;
+  width: 70%;
+}
+
+.slayer {
+  margin: 10px;
+  float: left;
+  width: 15%;
 }
 
 .main {
   float: left;
-  width: 60vw;
+  width: 70%;
 }
 
 .menu {
   float: right;
-  width: 20vw;
+  width: 15%;
 }
 
 .clearfix:after {

@@ -1,5 +1,6 @@
 import { flipper } from './environments.js';
 import { FlashCard } from './card.js';
+import { FlashCardSlayer } from './slayer.js';
 
 class FlashCardDeck extends HTMLDivElement {
   constructor() {
@@ -11,6 +12,11 @@ class FlashCardDeck extends HTMLDivElement {
     const flashCard = this.querySelector(".card:hover");
     if (flashCard !== null) {
       flashCard.display();
+      return;
+    }
+    const slayer = this.querySelector(".slayer:hover");
+    if (slayer !== null) {
+      slayer.deleteFlashCard();
       return;
     }
   }
@@ -38,11 +44,16 @@ class FlashCardDeck extends HTMLDivElement {
 }
 
 function makeFlashCard(question) {
+  const divElem = document.createElement("div");
   const flashCard = new FlashCard();
   flashCard.innerText = question;
   flashCard.className = "card";
+  const slayer = new FlashCardSlayer();
+  slayer.className = "slayer";
+  divElem.append(flashCard);
+  divElem.append(slayer);
 
-  return flashCard;
+  return divElem;
 }
 
 export { FlashCardDeck };

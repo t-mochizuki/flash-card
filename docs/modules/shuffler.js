@@ -16,7 +16,7 @@ function shuffleFlashCards() {
 
   deck = document.getElementById("deck");
   for (let i = 0; i < frontSideContents.length; ++i) {
-    deck.childNodes[i].innerText = frontSideContents[i];
+    deck.childNodes[i].childNodes[0].innerText = frontSideContents[i];
   }
 }
 
