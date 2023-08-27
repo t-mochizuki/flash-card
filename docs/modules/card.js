@@ -1,6 +1,6 @@
 import { flipper } from './environments.js';
 
-class FlashCard extends HTMLSpanElement {
+class FlashCard extends HTMLDivElement {
   #viewerDialog = document.getElementById("viewer_dialog");
 
   constructor() {

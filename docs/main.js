@@ -8,7 +8,7 @@ import { FlashCardMaker } from './modules/maker.js';
 import { FlashCard } from './modules/card.js';
 
 customElements.define("flash-card-deck", FlashCardDeck, {extends: "div"});
-customElements.define("flash-card", FlashCard, {extends: "span"});
+customElements.define("flash-card", FlashCard, {extends: "div"});
 customElements.define("flash-card-loader", FlashCardLoader, {extends: "button"});
 customElements.define("flash-card-shuffler", FlashCardShuffler, {extends: "button"});
 customElements.define("maker-dialog", MakerDialog, {extends: "dialog"});
